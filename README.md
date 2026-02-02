@@ -12,16 +12,6 @@ Amorfs is a data format designed to address fundamental limitations in tradition
 - **Maintaining language agnosticism**: Representing concepts independently of their linguistic expressions
 - **Including data presentation**: Capturing style and layout data as first-class citizens
 
-## Installation
-
-```bash
-npm install amorfs-core
-# or
-pnpm add amorfs-core
-# or
-yarn add amorfs-core
-```
-
 ## Quick Start
 
 ```typescript
@@ -352,12 +342,3 @@ pnpm test:watch
 # Lint
 pnpm lint
 ```
-
-## License
-
-MIT
-
-## Related
-
-- [Amorfs Specification](https://github.com/firstcognition/amorfs-spec) - Full format specification
-- [First Cognition](https://firstcognition.com) - The company behind Amorfs
