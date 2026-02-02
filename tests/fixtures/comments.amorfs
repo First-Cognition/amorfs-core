@@ -1,0 +1,16 @@
+# =============================================================================
+# Comments Fixture
+# Demonstrates comment syntax in Amorfs
+# =============================================================================
+
+# Full-line comments start with #
+# They are ignored by the parser
+
+# Comments can appear before concepts
+city [Sydney]
+
+# Comments can appear between concepts
+country [Australia]
+
+# Inline comments after data
+person [John Smith] # This is an inline comment

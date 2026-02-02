@@ -1,0 +1,33 @@
+# =============================================================================
+# Units of Measurement Fixture
+# Demonstrates physical measurements with units
+# =============================================================================
+
+physical_measurement [Height Measurement
+  - value [1.75]
+  - unit [meters | m]
+]
+
+temperature_reading [Room Temperature
+  - value [72]
+  - unit [Fahrenheit | °F {en} | degrees F]
+]
+
+complex_unit [Speed Limit
+  - value [100]
+  - unit [kilometers per hour | km/h | kph]
+]
+
+# Scientific measurement
+scientific_measurement [Avogadro Number
+  - value [6.022e23]
+  - unit [per mole | mol⁻¹]
+]
+
+# Measurement with precision
+precise_measurement [Sample Weight
+  - value [12.345]
+  - unit [grams | g]
+  - precision [0.001]
+  - uncertainty [0.002 {~0.95}]
+]

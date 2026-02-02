@@ -1,0 +1,19 @@
+# =============================================================================
+# Language Metadata Fixture
+# Demonstrates language codes on expressions
+# =============================================================================
+
+# Single expression with language
+hello [Hello {en}]
+
+# Multiple expressions with different languages
+multilingual_greeting [Hello {en} | Bonjour {fr} | Hola {es} | こんにちは {ja}]
+
+# Concept name with language alternatives
+country {en} | pays {fr} | 国 {ja} [Australia {en} | Australie {fr} | オーストラリア {ja}]
+
+# Nested concept with language metadata
+welcome_message [
+  Welcome {en} | Bienvenue {fr} | Willkommen {de}
+  - formal [Welcome to our service {en} | Bienvenue dans notre service {fr}]
+]

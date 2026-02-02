@@ -1,0 +1,49 @@
+{
+  "name": "amorfs-core",
+  "version": "0.1.0",
+  "description": "Amorfs parser - concept-based data representation system",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc && npm run copy:grammar",
+    "build:grammar": "ohm generateBundles --esm src/grammar/amorfs.ohm",
+    "copy:grammar": "mkdir -p dist/grammar && cp src/grammar/amorfs.ohm-bundle.js dist/grammar/ && cp src/grammar/amorfs.ohm-bundle.d.ts dist/grammar/",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "ohm-js": "^17.3.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@ohm-js/cli": "^2.0.1",
+    "eslint": "^9.39.2",
+    "typescript": "^5.3.0",
+    "typescript-eslint": "^8.54.0",
+    "vitest": "^4.0.18"
+  },
+  "keywords": [
+    "parser",
+    "amorfs",
+    "knowledge-graph",
+    "data-format",
+    "concept"
+  ],
+  "license": "MIT"
+}

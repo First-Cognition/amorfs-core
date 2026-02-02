@@ -1,0 +1,29 @@
+# =============================================================================
+# Semantic Web Vocabulary Fixture
+# Demonstrates standard vocabulary mappings (FOAF, Schema.org, SKOS, OWL)
+# =============================================================================
+
+# Multiple expressions including standard vocabulary terms
+semantic_person [Dr. Tim Berners-Lee
+  - name | foaf:name | schema:name [Tim Berners-Lee]
+  - email | foaf:mbox | schema:email [timbl@w3.org]
+  - homepage | foaf:homepage [<https://www.w3.org/People/Berners-Lee/>]
+  - same as | owl:sameAs [<http://dbpedia.org/resource/Tim_Berners-Lee>]
+]
+
+# SKOS-style concept hierarchy
+concept_hierarchy [Organic Chemistry
+  - preferred label | skos:prefLabel [Organic Chemistry {en} | Chimie Organique {fr}]
+  - alternate label | skos:altLabel [Carbon Chemistry {en}]
+  - broader | skos:broader [Chemistry]
+  - narrower | skos:narrower [Biochemistry]
+  - related | skos:related [Molecular Biology]
+]
+
+# Dublin Core metadata
+document [Research Paper
+  - title | dc:title [Advances in Machine Learning]
+  - creator | dc:creator [Dr. Jane Smith]
+  - date | dc:date [2024-03-15]
+  - subject | dc:subject [Machine Learning | AI]
+]

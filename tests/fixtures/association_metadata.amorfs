@@ -1,0 +1,22 @@
+# =============================================================================
+# Association Metadata Fixture
+# Demonstrates metadata on associations
+# =============================================================================
+
+# Metadata before association operator
+employee [John
+  {2024-01-01 ~0.9} - department [Engineering]
+  {2023-06-15} - started [true]
+]
+
+# Metadata after closing bracket (applies to all associations in block)
+contact [Pete
+  - phone [0401234567]
+  - email [pete@example.com]
+] {2024-06-01 ~0.8}
+
+# Mixed metadata at different levels
+record [Data Entry
+  {~0.95} - verified [true]
+  - source [Manual Entry {source=operator}]
+] {2024-03-15}

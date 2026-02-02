@@ -1,0 +1,63 @@
+# =============================================================================
+# Provenance and Data Lineage Fixture
+# Demonstrates tracking data sources and lineage
+# =============================================================================
+
+# Define sources
+sensor [Temperature Sensor T-100
+  - model [T-100]
+  - accuracy [0.1]
+  - unit [Celsius]
+] @temp_sensor
+
+measurement_process [Automated Data Collection
+  - frequency [every 5 minutes]
+  - validation [automatic]
+] @auto_collection
+
+# Data with full provenance
+reading [Temperature Reading
+  - value [22.5]
+  - unit [Celsius {~1.0}]
+  - timestamp [2024-03-15T14:30:00Z]
+  - measured_by [@temp_sensor]
+  - collected_via [@auto_collection]
+  - location [Lab Room 101]
+] {source=@temp_sensor ~0.95 +1}
+
+# Complex real-world example with provenance
+business_card [
+  Dr. Sarah Chen {en} | 陈博士 {zh}
+  + full_name [Sarah Elizabeth Chen {en} | 陈伊丽莎白 {zh}]
+  - title [Chief Data Scientist {en} | 首席数据科学家 {zh}]
+  - organization [
+    - name [TechCorp International {en} | 国际科技公司 {zh}]
+    - url [<https://techcorp.example.com>]
+    - logo [<https://techcorp.example.com/logo.png>]
+  ]
+  - contact [
+    - email [sarah.chen@techcorp.com {~1.0}]
+    - phone [+1 555 123 4567 {~0.9}]
+    - linkedin [<https://linkedin.com/in/sarahchen>]
+  ]
+  - address [
+    + street [100 Innovation Drive]
+    + city [San Francisco]
+    + state [California | CA]
+    + postal_code [94105]
+    + country [United States {en} | USA | 美国 {zh}]
+  ]
+  - expertise [
+    Machine Learning {en} | 机器学习 {zh}
+    - level [Expert {+3}]
+  ]
+  - expertise [
+    Data Science {en} | 数据科学 {zh}
+    - level [Expert {+3}]
+  ]
+  - expertise [
+    Python Programming
+    - level [Advanced {+2}]
+  ]
+  - availability [Available for consulting {2024-01-01/ ~0.8}]
+] @sarah_chen_card

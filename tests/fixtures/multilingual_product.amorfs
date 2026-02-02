@@ -1,0 +1,19 @@
+# Multilingual product example
+
+product [
+  Smart Watch {en} | Montre Intelligente {fr} | スマートウォッチ {ja}
+  - description [
+    A versatile wearable device {en} |
+    Un appareil portable polyvalent {fr} |
+    多機能なウェアラブルデバイス {ja}
+  ]
+  - price [
+    + amount [299]
+    + currency [USD | $ {en}]
+  ]
+  - features [
+    - heart rate [yes]
+    - gps [yes]
+    - water resistant [50m]
+  ]
+]

@@ -1,0 +1,37 @@
+# =============================================================================
+# Nested Structures Fixture
+# Demonstrates deeply nested concepts and hierarchies
+# =============================================================================
+
+# Deeply nested concepts
+location [Australia
+  - state [New South Wales
+    - city [Sydney
+      - suburb [Newington
+        - street [Edwin Flack Ave
+          - building [Olympic Park]
+        ]
+      ]
+    ]
+  ]
+]
+
+# Nested with multiple children at each level
+organization [University
+  - department [Computer Science
+    - faculty [Dr. Alice Smith
+      - role [Professor]
+      - specialization [Machine Learning]
+    ]
+    - faculty [Dr. Bob Jones
+      - role [Associate Professor]
+      - specialization [Databases]
+    ]
+  ]
+  - department [Mathematics
+    - faculty [Dr. Carol White
+      - role [Professor]
+      - specialization [Number Theory]
+    ]
+  ]
+]

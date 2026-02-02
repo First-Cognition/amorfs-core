@@ -1,0 +1,15 @@
+# Person with semantic web vocabulary mappings
+
+person [Dr. Sarah Chen
+  - name | foaf:name | schema:name [Sarah Chen]
+  - title | schema:honorificPrefix [Dr.]
+  - job title | schema:jobTitle [Materials Scientist]
+  - email | foaf:mbox | schema:email [sarah.chen@university.edu]
+  - homepage | foaf:homepage | schema:url [<https://materials.edu/chen>]
+  - works for | foaf:workplaceHomepage | schema:worksFor [
+    - name | schema:name [University Materials Research Center]
+    - url | schema:url [<https://materials.edu>]
+  ]
+  + birth date [1985-03-22]
+  + nationality [Australian]
+]

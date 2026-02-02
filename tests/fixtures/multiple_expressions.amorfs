@@ -1,0 +1,16 @@
+# =============================================================================
+# Multiple Expressions Fixture
+# Demonstrates synonyms and alternative expressions
+# =============================================================================
+
+# Multiple text expressions (synonyms)
+state [NSW | New South Wales]
+
+# Multiple expressions with different types
+identifier [ABC123 | <https://example.com/id/abc123>]
+
+# Three synonyms
+color [Red | Crimson | Scarlet]
+
+# Multiple expressions for the same concept
+country [Australia | AU | AUS]

@@ -1,0 +1,29 @@
+# =============================================================================
+# Value Blocks Fixture
+# Demonstrates mixed content in value blocks
+# =============================================================================
+
+# Multiple value items (both bare concepts and associations)
+product [Widget Pro
+  Premium Widget
+  - sku [WGT-PRO-001]
+  - price [299.99]
+  - category [Electronics]
+  Premium Quality
+]
+
+# Comma-separated items
+colors [Red, Green, Blue]
+
+# Mixed separators (newlines and commas work together)
+options [
+  Option A,
+  Option B
+  Option C, Option D
+]
+
+# Value block with only associations
+simple_contact [
+  - name [John]
+  - email [john@example.com]
+]

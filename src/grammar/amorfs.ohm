@@ -1,0 +1,235 @@
+Amorfs {
+  // ============================================================================
+  // DOCUMENT STRUCTURE
+  // ============================================================================
+  
+  Document
+    = ws* (TopLevel ws*)* 
+  
+  TopLevel
+    = Comment
+    | Concept
+
+  // ============================================================================
+  // CONCEPTS
+  // ============================================================================
+  // A Concept is the fundamental unit: expressions + optional value block
+  // Examples:
+  //   person [John]
+  //   city [Sydney | シドニー {ja}]
+  //   address [- street [123 Main St], - city [Sydney]]
+  
+  Concept
+    = Expressions? ValueBlock Metadata? conceptRef?    -- withValue
+    | conceptRef                                        -- reference
+    | Expressions Metadata? conceptRef?                 -- expressionOnly
+  
+  // Value block contains concepts and associations
+  // Example: [John Smith, - phone [555-1234], + birth_date [1985-01-01]]
+  ValueBlock
+    = "[" ws* ValueContent? ws* "]"
+  
+  ValueContent
+    = ValueItem (ws* itemSep? ws* ValueItem)*
+  
+  ValueItem
+    = Association
+    | Concept
+  
+  // Association: intrinsic (+) or contextual (-) relationship
+  // Requires space after + or - to distinguish from negative numbers
+  // Example: + birth_date [1985-01-01]
+  // Example: - phone [555-1234]
+  Association
+    = Metadata? associationOp Concept
+
+  // ============================================================================
+  // EXPRESSIONS
+  // ============================================================================
+  // Physical representations of concepts with optional metadata
+  // Multiple alternatives separated by |
+  // Examples:
+  //   John Smith
+  //   NSW | New South Wales
+  //   Hello {en} | Bonjour {fr}
+  //   street {en} | rue {fr}
+  
+  Expressions
+    = Expression (ws* "|" ws* Expression)*
+  
+  Expression
+    = ExpressionValue Metadata?
+  
+  ExpressionValue
+    = iri
+    | quotedString
+    | datetime
+    | number
+    | text
+
+  // ============================================================================
+  // METADATA BLOCKS
+  // ============================================================================
+  // Attributes in curly braces: {lang temporal ~confidence +/-importance key=value}
+  // Examples:
+  //   {en}
+  //   {2024-03-15 ~0.95}
+  //   {en 2024-01-01 ~0.8 +2}
+  //   {source=@nasa_db ~1.0}
+  
+  Metadata
+    = "{" ws* MetadataContent? ws* "}"
+  
+  MetadataContent
+    = MetadataItem (ws* MetadataItem)*
+  
+  MetadataItem
+    = customAttribute
+    | temporalRange
+    | temporal
+    | confidence
+    | importance
+    | languageCode
+
+  // Language: ISO 639-1 two-letter code
+  languageCode
+    = letter letter ~alnum
+  
+  // Confidence: ~0.0 to ~1.0
+  confidence
+    = "~" decimalNumber
+  
+  // Importance: +N or -N (must have digits immediately after sign)
+  importance
+    = ("+" | "-") digit+
+  
+  // Temporal: ISO 8601 date or datetime
+  temporal
+    = datetime
+    | date
+  
+  // Temporal range: start/end or start/ or /end
+  temporalRange
+    = date "/" date?     -- startEnd
+    | "/" date           -- endOnly
+  
+  // Custom attribute: key=value or key=@reference
+  customAttribute
+    = identifier "=" (conceptRef | attrValue)
+  
+  // Simple value for custom attributes (no spaces or closing brace)
+  attrValue
+    = (~(space | newline | "}") any)+
+
+  // ============================================================================
+  // CONCEPT REFERENCES
+  // ============================================================================
+  // Named anchors for reuse: @identifier
+  // Must start with @ followed by identifier (not in middle of text)
+  // Example: city [Sydney] @sydney_ref
+  
+  conceptRef
+    = "@" identifier
+
+  // ============================================================================
+  // LITERALS
+  // ============================================================================
+  
+  // IRI: <https://example.com/resource>
+  iri
+    = "<" iriContent ">"
+  
+  iriContent
+    = (~">" any)*
+  
+  // Quoted string: "text with [special] chars"
+  quotedString
+    = "\"" stringContent "\""
+  
+  stringContent
+    = (escapeSequence | ~"\"" any)*
+  
+  escapeSequence
+    = "\\" any
+  
+  // Number: integer, decimal, or scientific notation
+  // Only match standalone numbers (followed by delimiter, space, or end)
+  number
+    = "-"? digit+ ("." digit+)? exponent? &(space | delimiter | end)
+  
+  exponent
+    = ("e" | "E") ("+" | "-")? digit+
+  
+  // Datetime: ISO 8601 with time component
+  datetime
+    = date "T" time timezone?
+  
+  // Date: YYYY-MM-DD
+  date
+    = digit digit digit digit "-" digit digit "-" digit digit
+  
+  // Time: HH:MM:SS with optional fractional seconds
+  time
+    = digit digit ":" digit digit ":" digit digit ("." digit+)?
+  
+  // Timezone: Z or +/-HH:MM
+  timezone
+    = "Z"
+    | timezoneOffset
+  
+  timezoneOffset
+    = ("+" | "-") digit digit ":" digit digit
+  
+  // Plain text: any characters that aren't structural delimiters
+  // Allows @, ., numbers, spaces, etc. within text (like email addresses, phone numbers)
+  text
+    = textChar+
+  
+  textChar
+    = ~structuralDelimiter any
+  
+  // Only structural characters that truly end a text expression
+  structuralDelimiter
+    = "[" | "]" | "{" | "}" | "|" | newline
+
+  // Characters that mark token boundaries (used for lookahead)
+  delimiter
+    = "[" | "]" | "{" | "}" | "<" | ">" | "|" | "," | newline
+
+  // ============================================================================
+  // IDENTIFIERS & COMMENTS
+  // ============================================================================
+  
+  identifier
+    = (letter | "_") (alnum | "_" | "-")*
+  
+  Comment
+    = "#" (~newline any)* &(newline | end)
+
+  // ============================================================================
+  // LEXICAL ELEMENTS
+  // ============================================================================
+  
+  // Association operators: + or - followed by space(s)
+  // The space is required to distinguish from negative numbers in expressions
+  associationOp
+    = ("+" | "-") space+
+  
+  // Item separator: comma (newlines handled separately in ValueContent)
+  itemSep
+    = ","
+  
+  // Decimal number for confidence
+  decimalNumber
+    = digit+ ("." digit+)?
+  
+  // Whitespace handling
+  ws
+    = space | newline
+  
+  space
+    := " " | "\t"
+  
+  newline
+    = "\r\n" | "\n" | "\r"
+}

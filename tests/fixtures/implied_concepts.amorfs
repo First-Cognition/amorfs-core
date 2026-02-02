@@ -1,0 +1,29 @@
+# =============================================================================
+# Implied Concepts Fixture
+# Demonstrates concepts with no direct expression (implied)
+# =============================================================================
+
+# Concept with no expression before brackets (implied)
+address [
+  + street [123 Main Street]
+  + city [Melbourne]
+  + state [Victoria]
+  + postcode [3000]
+  + country [Australia]
+]
+
+# Another implied concept
+contact_info [
+  - email [contact@example.com]
+  - phone [+61 2 1234 5678]
+  - fax [+61 2 1234 5679]
+]
+
+# Implied concept with nested structure
+profile [
+  - name [Anonymous User]
+  - settings [
+    - theme [dark]
+    - language [en]
+  ]
+]

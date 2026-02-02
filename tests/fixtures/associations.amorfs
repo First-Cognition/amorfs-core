@@ -1,0 +1,27 @@
+# =============================================================================
+# Associations Fixture
+# Demonstrates intrinsic (+) and contextual (-) associations
+# =============================================================================
+
+# Intrinsic associations (+) - unchanging characteristics
+person_intrinsic [Jane Doe
+  + birth_date [1990-05-15]
+  + birth_place [Melbourne]
+  + full_name [Jane Elizabeth Doe]
+]
+
+# Contextual associations (-) - circumstantial characteristics
+person_contextual [Jane Doe
+  - employer [Acme Corp]
+  - office [Building A, Room 205]
+  - phone [+61 401 234 567]
+]
+
+# Mixed associations
+complete_person [John Smith
+  + birth_date [1985-07-15]
+  + nationality [Australian]
+  - employer [Tech Corp]
+  - title [Senior Engineer]
+  - email [john@techcorp.com]
+]

@@ -1,0 +1,34 @@
+# =============================================================================
+# Expression Types Fixture
+# Demonstrates all expression types in Amorfs
+# =============================================================================
+
+# Text expressions
+name [John Smith]
+
+# Numeric expressions - integers
+age [42]
+count [-17]
+
+# Numeric expressions - decimals
+temperature [98.6]
+ratio [0.75]
+
+# Numeric expressions - scientific notation
+avogadro [6.022e23]
+tiny [1.5E-10]
+
+# Date expressions (ISO 8601)
+birth_date [1985-03-22]
+
+# Datetime expressions (ISO 8601 with time)
+timestamp [2024-03-15T14:30:00Z]
+local_time [2024-03-15T14:30:00+10:00]
+
+# IRI expressions (URLs/URIs in angle brackets)
+homepage [<https://example.com/user/john>]
+resource [<http://dbpedia.org/resource/Sydney>]
+
+# Quoted strings for special content
+formula ["x = [a + b] / 2"]
+escaped ["He said \"hello\" to her"]

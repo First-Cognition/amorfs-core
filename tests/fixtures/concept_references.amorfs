@@ -1,0 +1,34 @@
+# =============================================================================
+# Concept References Fixture
+# Demonstrates @references for linking concepts
+# =============================================================================
+
+# Define a concept with a reference
+source_database [NASA Scientific Database
+  - url [<https://science.nasa.gov/>]
+  - credibility [high]
+] @nasa_source
+
+# Define a person with reference
+data_scientist [Sarah Chen
+  - email [sarah@example.com]
+  - department [Research]
+] @sarah
+
+# Use references in associations
+research_paper [Stellar Analysis 2024
+  - author [@sarah]
+  - primary_source [@nasa_source]
+  - data [stellar measurements]
+]
+
+# Reference used in nested structure
+city_reference [Sydney
+  - landmark [Opera House]
+  - landmark [Harbour Bridge]
+] @sydney_city
+
+tourism [Australia
+  - destination [@sydney_city]
+  - recommended [yes]
+]

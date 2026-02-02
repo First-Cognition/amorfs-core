@@ -1,0 +1,33 @@
+# =============================================================================
+# Metadata Attributes Fixture
+# Demonstrates confidence, importance, temporal, and custom metadata
+# =============================================================================
+
+# Confidence level (~0.0 to ~1.0)
+estimated_value [1000 {~0.7}]
+verified_fact [The sky is blue {~1.0}]
+
+# Importance (+N or -N)
+critical_deadline [2024-12-31 {+5}]
+low_priority [optional task {-2}]
+
+# Temporal metadata (single date - validity start)
+current_title [Professor {2020-01-01}]
+
+# Temporal range (start/end)
+previous_title [Associate Professor {2015-01-01/2019-12-31}]
+
+# Temporal range (open-ended - ongoing)
+ongoing_role [Researcher {2010-01-01/}]
+
+# Temporal range (end only - unknown start)
+legacy_data [old value {/2020-12-31}]
+
+# Combined metadata
+complex_value [42 {en 2024-01-01 ~0.95 +2}]
+
+# Custom attributes
+sourced_data [scientific fact {source=NASA}]
+
+# Custom attribute with concept reference
+referenced_data [measurement {source=@nasa_source}]

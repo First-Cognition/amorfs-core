@@ -1,0 +1,16 @@
+# =============================================================================
+# Basic Concepts Fixture
+# Demonstrates simple concept syntax
+# =============================================================================
+
+# Simple concept with expression only (no value block)
+greeting
+
+# Concept with value block
+city [Sydney]
+
+# Concept with quoted string (for special characters)
+note ["This text contains [brackets] and | pipes"]
+
+# Concept with simple text value
+name [John Smith]
