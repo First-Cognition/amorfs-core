@@ -11,8 +11,10 @@ export {
 // Re-export AST types
 export type { 
 	AmorfsAST, 
-	ConceptNode, 
-	ChildAssociation, 
+	ConceptNode,
+	BaseConcept,
+	AssociationConcept,
+	ReferenceConcept,
 	Metadata, 
 	ExpressionValue,
 	AssociationType,

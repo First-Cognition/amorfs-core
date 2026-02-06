@@ -26,49 +26,86 @@ export interface Metadata {
   custom?: Record<string, string | ConceptRef>;
 }
 
-// Reference to another concept
+// Reference to another concept (used in metadata)
 export interface ConceptRef {
   type: 'reference';
   key: string;
 }
 
-// Child association
-export interface ChildAssociation {
-  associationType: AssociationType;
-  isIntrinsic: boolean;
-  concept: ConceptNode;
-  metadata?: Metadata;
-}
+// ─── Concept Node (discriminated union) ─────────────────────────────
 
-// Main concept node
-export interface ConceptNode {
-  /** 
+/**
+ * Common properties shared by all concept kinds.
+ */
+interface ConceptBase {
+  /**
    * Reference key for this concept, assigned via @identifier syntax.
    * Null unless the concept is explicitly named with @ operator.
    */
   key: string | null;
-  
+
   /**
-   * Whether this concept is a reference to another concept (uses @key syntax)
-   */
-  isReference: boolean;
-  
-  /**
-   * Parameter expressions - the expressions before `[` that define/name this concept.
-   * For `state [NSW]`, this would contain the "state" expression.
-   */
-  parameter: ExpressionValue[];
-  
-  /**
-   * Child concepts/associations (values via which_is, attributes via has_a)
-   */
-  children: ChildAssociation[];
-  
-  /**
-   * Metadata for this concept
+   * Metadata for this concept.
    */
   metadata: Metadata | null;
+
+  /**
+   * Child concepts (can be empty).
+   * Children may be base concepts, association concepts, or referenced concepts.
+   */
+  children: ConceptNode[];
 }
+
+/**
+ * A base concept — represents an entity, attribute, or value.
+ * Has one or more expressions that name/describe it.
+ */
+export interface BaseConcept extends ConceptBase {
+  kind: 'base';
+
+  /**
+   * Expressions that define/name this concept.
+   * For `state [NSW]`, the outer concept's expressions would contain "state",
+   * and the child base concept's expressions would contain "NSW".
+   */
+  expressions: ExpressionValue[];
+}
+
+/**
+ * An association concept — represents a relationship between its parent
+ * and the concepts in its children list.
+ */
+export interface AssociationConcept extends ConceptBase {
+  kind: 'association';
+
+  /**
+   * The type of association: 'has_a' (via +/-) or 'which_is' (via []).
+   */
+  associationType: AssociationType;
+
+  /**
+   * Whether this is an intrinsic (+) or contextual (-) association.
+   * Only meaningful when associationType is 'has_a'.
+   */
+  isIntrinsic: boolean;
+}
+
+/**
+ * A referenced concept — refers to another concept by its @key.
+ */
+export interface ReferenceConcept extends ConceptBase {
+  kind: 'reference';
+
+  /**
+   * The reference key (the identifier after @).
+   */
+  referenceKey: string;
+}
+
+/**
+ * A concept is one of three kinds: base, association, or reference.
+ */
+export type ConceptNode = BaseConcept | AssociationConcept | ReferenceConcept;
 
 // Root AST node
 export interface AmorfsAST {

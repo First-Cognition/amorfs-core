@@ -27,7 +27,10 @@ person [John Smith
 
 if (isValid(input)) {
   const ast = parseOrThrow(input);
-  console.log(ast.concepts[0].parameter[0].value); // "person"
+  const person = ast.concepts[0];
+  if (person.kind === 'base') {
+    console.log(person.expressions[0].value); // "person"
+  }
 }
 ```
 
@@ -74,7 +77,7 @@ if (isValid(input)) {
 
 ### Basic Concepts
 
-A concept consists of a parameter (name) and optional value/children:
+A concept is one of three kinds: **base**, **association**, or **reference**. A base concept has expressions (name/value), an association concept represents a relationship, and a reference concept points to another named concept:
 
 ```amorfs
 # Simple concept with value
@@ -189,19 +192,40 @@ interface AmorfsAST {
   references: Record<string, ConceptNode>;  // Named references (@key)
 }
 
-interface ConceptNode {
-  key: string | null;                // Reference key (@identifier)
-  isReference: boolean;              // True if this is a @reference
-  parameter: ExpressionValue[];      // Parameter expressions (before [)
-  children: ChildAssociation[];      // Child associations
-  metadata: Metadata | null;         // Attached metadata
+// ConceptNode is a discriminated union of three kinds:
+type ConceptNode = BaseConcept | AssociationConcept | ReferenceConcept;
+
+// All concept kinds share these properties:
+// - key: string | null           — Reference key (@identifier), null if unnamed
+// - metadata: Metadata | null    — Attached metadata
+// - children: ConceptNode[]      — Child concepts (can be empty)
+
+// A base concept has expressions that name/describe it
+interface BaseConcept {
+  kind: 'base';
+  key: string | null;
+  expressions: ExpressionValue[];    // Expressions that define this concept
+  children: ConceptNode[];
+  metadata: Metadata | null;
 }
 
-interface ChildAssociation {
+// An association concept represents a relationship (has_a via +/-)
+interface AssociationConcept {
+  kind: 'association';
+  key: string | null;
   associationType: 'has_a' | 'which_is';
   isIntrinsic: boolean;              // true for +, false for -
-  concept: ConceptNode;
-  metadata?: Metadata;
+  children: ConceptNode[];           // Contains the target concept(s)
+  metadata: Metadata | null;
+}
+
+// A referenced concept points to another concept by @key
+interface ReferenceConcept {
+  kind: 'reference';
+  key: string | null;
+  referenceKey: string;              // The @identifier being referenced
+  children: ConceptNode[];
+  metadata: Metadata | null;
 }
 
 interface ExpressionValue {
@@ -284,7 +308,7 @@ research_paper [Stellar Analysis 2024
 ## Working with the AST
 
 ```typescript
-import { parseOrThrow, type ConceptNode } from 'amorfs-core';
+import { parseOrThrow, type ConceptNode, type BaseConcept, type AssociationConcept } from 'amorfs-core';
 
 const input = `
 person [John Smith
@@ -295,31 +319,41 @@ person [John Smith
 
 const ast = parseOrThrow(input);
 
-// Get the first concept
+// Get the first concept (a base concept)
 const person = ast.concepts[0];
-console.log(person.parameter[0].value); // "person"
+if (person.kind === 'base') {
+  console.log(person.expressions[0].value); // "person"
+}
 
-// Find value (which_is association)
-const nameAssoc = person.children.find(c => c.associationType === 'which_is');
-console.log(nameAssoc?.concept.parameter[0].value); // "John Smith"
+// Find value — bare base concepts are direct children
+const nameChild = person.children.find(
+  c => c.kind === 'base' && c.expressions[0]?.value === 'John Smith'
+);
+console.log(nameChild?.kind); // "base"
 
-// Find attributes (has_a associations)
+// Find associations — association concepts wrap the target
 const birthDate = person.children.find(
-  c => c.associationType === 'has_a' && 
-       c.concept.parameter[0]?.value === 'birth_date'
+  (c): c is AssociationConcept =>
+    c.kind === 'association' &&
+    c.children[0]?.kind === 'base' &&
+    (c.children[0] as BaseConcept).expressions[0]?.value === 'birth_date'
 );
 console.log(birthDate?.isIntrinsic); // true
 
-// Helper function to get parameter value
-function getParameterValue(concept: ConceptNode): string | number | null {
-  return concept.parameter[0]?.value ?? null;
+// Helper to get first expression value from a concept
+function getExpressionValue(concept: ConceptNode): string | number | null {
+  if (concept.kind !== 'base') return null;
+  return concept.expressions[0]?.value ?? null;
 }
 
-// Helper to find child by parameter name
-function findChild(concept: ConceptNode, name: string) {
+// Helper to find a has_a association by its target's expression
+function findAssociation(concept: ConceptNode, name: string) {
   return concept.children.find(
-    c => c.associationType === 'has_a' && 
-         getParameterValue(c.concept) === name
+    (c): c is AssociationConcept =>
+      c.kind === 'association' &&
+      c.associationType === 'has_a' &&
+      c.children[0]?.kind === 'base' &&
+      (c.children[0] as BaseConcept).expressions[0]?.value === name
   );
 }
 ```

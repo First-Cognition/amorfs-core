@@ -6,7 +6,8 @@ import type { AmorfsActionDict } from '../grammar/amorfs.ohm-bundle.js';
 import type {
 	AmorfsAST,
 	ConceptNode,
-	ChildAssociation,
+	BaseConcept,
+	AssociationConcept,
 	ExpressionValue,
 	Metadata,
 	ConceptRef,
@@ -46,7 +47,7 @@ export function createSemanticActions(ctx: ParseContext): AmorfsActionDict<unkno
       
 			for (const item of topLevelList.children) {
 				const result = item.children[0].eval();
-				if (result && typeof result === 'object' && 'key' in result) {
+				if (result && typeof result === 'object' && 'kind' in result) {
 					concepts.push(result as ConceptNode);
 				}
 				// Comments return undefined, skip them
@@ -63,11 +64,11 @@ export function createSemanticActions(ctx: ParseContext): AmorfsActionDict<unkno
 		},
 
 		Concept_withValue(expressionsOpt, valueBlock, metadataOpt, conceptRefOpt) {
-			const parameter: ExpressionValue[] = expressionsOpt.children.length > 0 
+			const expressions: ExpressionValue[] = expressionsOpt.children.length > 0 
 				? expressionsOpt.children[0].eval() as ExpressionValue[]
 				: [];
       
-			const children: ChildAssociation[] = valueBlock.eval() as ChildAssociation[];
+			const children: ConceptNode[] = valueBlock.eval() as ConceptNode[];
 			const metadata: Metadata | null = metadataOpt.children.length > 0 
 				? metadataOpt.children[0].eval() as Metadata
 				: null;
@@ -76,10 +77,10 @@ export function createSemanticActions(ctx: ParseContext): AmorfsActionDict<unkno
 				: null;
 			const key: string | null = conceptRefResult ? conceptRefResult.key : null;
       
-			const concept: ConceptNode = {
+			const concept: BaseConcept = {
+				kind: 'base',
 				key,
-				isReference: false,
-				parameter,
+				expressions,
 				children,
 				metadata,
 			};
@@ -93,7 +94,7 @@ export function createSemanticActions(ctx: ParseContext): AmorfsActionDict<unkno
 		},
 
 		Concept_expressionOnly(expressions, metadataOpt, conceptRefOpt) {
-			const parameter: ExpressionValue[] = expressions.eval() as ExpressionValue[];
+			const exprs: ExpressionValue[] = expressions.eval() as ExpressionValue[];
 			const metadata: Metadata | null = metadataOpt.children.length > 0 
 				? metadataOpt.children[0].eval() as Metadata
 				: null;
@@ -102,10 +103,10 @@ export function createSemanticActions(ctx: ParseContext): AmorfsActionDict<unkno
 				: null;
 			const key: string | null = conceptRefResult ? conceptRefResult.key : null;
       
-			const concept: ConceptNode = {
+			const concept: BaseConcept = {
+				kind: 'base',
 				key,
-				isReference: false,
-				parameter,
+				expressions: exprs,
 				children: [],
 				metadata,
 			};
@@ -121,15 +122,13 @@ export function createSemanticActions(ctx: ParseContext): AmorfsActionDict<unkno
 		Concept_reference(conceptRef) {
 			const ref: ConceptRef = conceptRef.eval() as ConceptRef;
       
-			const concept: ConceptNode = {
-				key: ref.key,
-				isReference: true,
-				parameter: [],
+			return {
+				kind: 'reference',
+				key: null,
+				referenceKey: ref.key,
 				children: [],
 				metadata: null,
-			};
-      
-			return concept;
+			} satisfies ConceptNode;
 		},
 
 		ValueBlock(_open, _ws1, valueContentOpt, _ws2, _close) {
@@ -142,36 +141,19 @@ export function createSemanticActions(ctx: ParseContext): AmorfsActionDict<unkno
 		// ValueContent = ValueItem (ws* itemSep? ws* ValueItem)*
 		// Args: firstItem, ws*, itemSep?, ws*, ValueItem*
 		ValueContent(firstItem, _ws1, _itemSep, _ws2, restItems) {
-			const result: ChildAssociation[] = [];
+			const result: ConceptNode[] = [];
       
 			// Process first item
 			const first = firstItem.eval();
 			if (first) {
-				if ('associationType' in first) {
-					result.push(first as ChildAssociation);
-				} else {
-					// It's a bare concept (which_is relationship)
-					result.push({
-						associationType: 'which_is',
-						isIntrinsic: false,
-						concept: first as ConceptNode,
-					});
-				}
+				result.push(first as ConceptNode);
 			}
       
-			// Process rest items - restItems is an IterationNode containing all the ValueItems from the repeat
+			// Process rest items
 			for (const valueItem of restItems.children) {
 				const item = valueItem.eval();
 				if (item) {
-					if ('associationType' in item) {
-						result.push(item as ChildAssociation);
-					} else {
-						result.push({
-							associationType: 'which_is',
-							isIntrinsic: false,
-							concept: item as ConceptNode,
-						});
-					}
+					result.push(item as ConceptNode);
 				}
 			}
       
@@ -188,18 +170,19 @@ export function createSemanticActions(ctx: ParseContext): AmorfsActionDict<unkno
 			const metadata: Metadata | null = metadataOpt.children.length > 0
 				? metadataOpt.children[0].eval() as Metadata
 				: null;
+
+			const targetConcept = concept.eval() as ConceptNode;
       
-			const result: ChildAssociation = {
+			const assoc: AssociationConcept = {
+				kind: 'association',
+				key: null,
 				associationType: 'has_a',
 				isIntrinsic,
-				concept: concept.eval() as ConceptNode,
+				children: [targetConcept],
+				metadata,
 			};
       
-			if (metadata) {
-				result.metadata = metadata;
-			}
-      
-			return result;
+			return assoc;
 		},
 
 		// Expressions = Expression (ws* "|" ws* Expression)*
