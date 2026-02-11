@@ -1,0 +1,3 @@
+product [Widget
+, - sku [X]
+, + price [99]]

@@ -1,0 +1,5 @@
+mix [Alpha
+, Beta
+, + id [x]
+, - note [n]
+, Gamma]

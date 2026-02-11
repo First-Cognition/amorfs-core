@@ -1,0 +1,2 @@
+person [John] @john_ref
+record [ + @john_ref ]
