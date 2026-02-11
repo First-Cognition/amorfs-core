@@ -1,0 +1,1 @@
+outer [Inner {note=inner_meta} ] {note=outer_meta}

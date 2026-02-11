@@ -1,1 +1,1 @@
-contact [ - name [John], - email [j@x.com] ]
+contact [ - name [John], - email ["j@x.com"] ]

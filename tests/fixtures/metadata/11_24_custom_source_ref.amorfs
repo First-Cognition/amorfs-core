@@ -1,0 +1,2 @@
+data [fact] {source=@nasa}
+nasa [NASA] @nasa

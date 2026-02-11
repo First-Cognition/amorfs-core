@@ -1,0 +1,4 @@
+entity [E] @ent
+@ent
+holder [ - @ent ]
+meta [v] {ref=@ent}

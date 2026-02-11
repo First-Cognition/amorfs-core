@@ -1,0 +1,2 @@
+person [Bob] @bob
+group [ - member [ @bob ], - lead [ @bob ] ]

@@ -1,0 +1,3 @@
+alice [Alice] @alice
+db [Database] @db
+concept [v] {author=@alice source=@db id=plain}

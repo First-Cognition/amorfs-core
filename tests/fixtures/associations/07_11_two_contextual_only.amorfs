@@ -1,1 +1,1 @@
-contact [ - phone [x], - email [y@z.com] ]
+contact [ - phone [x], - email ["y@z.com"] ]

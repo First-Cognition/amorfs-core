@@ -1,0 +1,2 @@
+source_def [NASA DB] @nasa_source
+data [fact] {source=@nasa_source}

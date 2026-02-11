@@ -1,0 +1,2 @@
+entity [v] {author=Alice source=@db version=2}
+db [Database] @db

@@ -22,7 +22,7 @@ Amorfs {
   Concept
     = Expressions? ValueBlock Metadata? conceptRef?    -- withValue
     | conceptRef                                        -- reference
-    | Expressions Metadata? conceptRef?                 -- expressionOnly
+    | Expressions ws* Metadata? conceptRef?              -- expressionOnly
   
   // Value block contains concepts and associations
   // Example: [John Smith, - phone [555-1234], + birth_date [1985-01-01]]
@@ -30,18 +30,22 @@ Amorfs {
     = "[" ws* ValueContent? ws* "]"
   
   ValueContent
-    = ValueItem (ws* itemSep? ws* ValueItem)*
+    = ws* ValueItem (ws* itemSep? ws* ValueItem)*
   
   ValueItem
     = Association
-    | Concept
-  
+    | &(~("+" | "-")) Concept  -- conceptNotOp
+    | &("-" space digit) Concept  -- conceptNegativeNumSpace
+    | &("-" digit) Concept  -- conceptNegativeNum
+    | &("+" digit) Concept  -- conceptPositiveNum
+
   // Association: intrinsic (+) or contextual (-) relationship
   // Requires space after + or - to distinguish from negative numbers
+  // &(~digit) ensures "- 10" is not parsed as association when 10 is a number
   // Example: + birth_date [1985-01-01]
   // Example: - phone [555-1234]
   Association
-    = Metadata? associationOp Concept
+    = Metadata? associationOp &(~digit) ws* Concept
 
   // ============================================================================
   // EXPRESSIONS
@@ -189,8 +193,9 @@ Amorfs {
     = ~structuralDelimiter any
   
   // Only structural characters that truly end a text expression
+  // @ included so that "expr @ref" parses as expression + conceptRef
   structuralDelimiter
-    = "[" | "]" | "{" | "}" | "|" | newline
+    = "[" | "]" | "{" | "}" | "|" | "@" | newline
 
   // Characters that mark token boundaries (used for lookahead)
   delimiter

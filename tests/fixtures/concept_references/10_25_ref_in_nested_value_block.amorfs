@@ -1,0 +1,2 @@
+defined [x] @defined
+outer [ - inner [ - leaf [ @defined ] ] ]

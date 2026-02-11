@@ -133,13 +133,13 @@ describe("Section 4 Expression Types (04_)", () => {
 			expect(expr!.value).toBe("ABC123");
 		});
 
-		it("04_07_text_email_like: @ and dots allowed in text", () => {
+		it("04_07_text_email_like: @ and dots in value (quoted so @ not ref)", () => {
 			const input = loadFixture("04_07_text_email_like.amorfs");
 			expect(isValid(input)).toBe(true);
 			const ast = parseOrThrow(input);
 			const expr = getValueBlockFirstExpression(ast.concepts[0]);
 			expect(expr).not.toBeNull();
-			expect(expr!.type).toBe("text");
+			expect(expr!.type).toBe("quoted");
 			expect(expr!.value).toBe("user@example.com");
 		});
 

@@ -1,0 +1,2 @@
+concept [v] {related=@other}
+other [x] @other

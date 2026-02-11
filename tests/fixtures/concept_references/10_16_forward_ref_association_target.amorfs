@@ -1,0 +1,2 @@
+doc [ - author [ @person_ref ] ]
+person [Alice] @person_ref

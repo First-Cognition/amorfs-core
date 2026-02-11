@@ -1,0 +1,2 @@
+other [y] @other_ref
+item [x] {related=@other_ref}
