@@ -8,7 +8,13 @@ Amorfs {
   
   TopLevel
     = Comment
+    | TopLevelConcept
     | Concept
+
+  // Top-level only: implicit value block (title line then association lines)
+  // Not used inside value blocks so "label\n  - key [v]" inside [...] stays two items
+  TopLevelConcept
+    = Expressions ImplicitBlock ws* Metadata? conceptRef?  -- withImplicitValue
 
   // ============================================================================
   // CONCEPTS
@@ -23,6 +29,11 @@ Amorfs {
     = Expressions? ValueBlock Metadata? conceptRef?    -- withValue
     | conceptRef                                        -- reference
     | Expressions ws* Metadata? conceptRef?              -- expressionOnly
+
+  // Implicit value block: title line followed by one or more association lines (-/+) 
+  // Same AST as explicit "Title [ - A, - B ]". Only at top level (see TopLevelConcept).
+  ImplicitBlock
+    = (newline space* Association)+
   
   // Value block contains concepts and associations
   // Example: [John Smith, - phone [555-1234], + birth_date [1985-01-01]]

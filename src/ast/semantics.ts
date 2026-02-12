@@ -148,6 +148,54 @@ export function createSemanticActions(
 			} satisfies ConceptNode;
 		},
 
+		// Top-level only: implicit value block (same AST as Concept_withValue with block content)
+		TopLevelConcept_withImplicitValue(
+			expressions,
+			implicitBlock,
+			_ws,
+			metadataOpt,
+			conceptRefOpt,
+		) {
+			const expressionsList: ExpressionValue[] =
+				expressions.eval() as ExpressionValue[];
+			const children: ConceptNode[] = implicitBlock.eval() as ConceptNode[];
+			const metadata: Metadata | null =
+				metadataOpt.children.length > 0
+					? (metadataOpt.children[0].eval() as Metadata)
+					: null;
+			const conceptRefResult =
+				conceptRefOpt.children.length > 0
+					? (conceptRefOpt.children[0].eval() as ConceptRef)
+					: null;
+			const key: string | null = conceptRefResult
+				? conceptRefResult.key
+				: null;
+
+			const concept: BaseConcept = {
+				kind: "base",
+				key,
+				expressions: expressionsList,
+				children,
+				metadata,
+			};
+
+			if (key) {
+				ctx.references[key] = concept;
+			}
+
+			return concept;
+		},
+
+		// ImplicitBlock = (newline space* Association)+
+		// Ohm parses as: newline, space*, (Association)+ — so 3 args; collect all Association nodes
+		ImplicitBlock(_newline, _space, associationIter) {
+			const children: ConceptNode[] = [];
+			for (const assocNode of associationIter.children) {
+				children.push(assocNode.eval() as ConceptNode);
+			}
+			return children;
+		},
+
 		ValueBlock(_open, _ws1, valueContentOpt, _ws2, _close) {
 			if (valueContentOpt.children.length === 0) {
 				return [];

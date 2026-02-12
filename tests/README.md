@@ -25,6 +25,7 @@ npx vitest run tests/identifiers.test.ts
 | **expression_types.test.ts** | `fixtures/expression_types/` (prefix `04_`) | All expression value types: text, quoted string, number, IRI, datetime; variants, precedence, invalid cases. |
 | **multiple_expressions.test.ts** | `fixtures/multiple_expressions/` (prefix `05_`) | Pipe-separated expressions, synonyms, per-expression metadata, mixed types, expression-only and value-block contexts. |
 | **value_blocks.test.ts** | `fixtures/value_blocks/` (prefix `06_`) | Empty blocks, single/multiple items, comma vs newline separation, mixed concepts and associations, order, nesting, invalid syntax. |
+| **implicit_block.test.ts** | `fixtures/implicit_block/` | Implicit value block: title line + association lines (-/+) at top level only; equivalence with explicit `Title [ - A, - B ]`, boundary and edge cases. |
 | **associations.test.ts** | `fixtures/associations/` (prefix `07_`) | Intrinsic (+), contextual (-), metadata on associations, multiple/mixed associations, target types (bare, nested, expression-only, reference), negative-number distinction. |
 | **implied_concepts.test.ts** | `fixtures/implied_concepts/` (prefix `08_`) | Implied concepts (no expressions before value block), single/multiple associations, metadata and `@ref`, nested implied, empty implied, item separation. |
 | **expression_only.test.ts** | `fixtures/expression_only/` (prefix `09_`) | Concepts with expressions but no value block; all expression types; multiple expressions with `|`; optional metadata and `@ref`. |
@@ -57,4 +58,4 @@ Suites typically:
 2. Use `parse()`, `isValid()`, and `parseOrThrow()` from `../src/index.js`.
 3. Assert success/failure, AST shape (concepts, associations, expressions, metadata, references), and sometimes structural equivalence between equivalent inputs.
 
-Plans that drove fixture design live under `.cursor/plans/` (e.g. `13_identifiers_*.plan.md`, `21_round_trip.plan.md`).
+Plans that drove fixture design live under `.cursor/plans/` (e.g. `13_identifiers_*.plan.md`, `21_round_trip.plan.md`, `implicit_value_block_syntax_a455ba1a.plan.md`).
