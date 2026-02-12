@@ -11,7 +11,7 @@ import type {
 	ExpressionValue,
 	Metadata,
 	ConceptRef,
-} from "./types.js";
+} from "./types";
 
 // Context for collecting references during parsing
 interface ParseContext {

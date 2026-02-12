@@ -6,7 +6,7 @@ export {
 	type ParseResult,
 	type ParseError,
 	type ParseOutput,
-} from './parser/index.js';
+} from './parser/index';
 
 // Re-export AST types
 export type { 
