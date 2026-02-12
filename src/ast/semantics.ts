@@ -4,6 +4,11 @@
 
 import type { AmorfsActionDict } from "../grammar/amorfs.ohm-bundle.js";
 import type {
+	IterationNode,
+	NonterminalNode,
+	TerminalNode,
+} from "ohm-js";
+import type {
 	AmorfsAST,
 	ConceptNode,
 	BaseConcept,
@@ -12,6 +17,21 @@ import type {
 	Metadata,
 	ConceptRef,
 } from "./types.js";
+
+/** Union of all possible values returned by semantic action eval() */
+export type SemanticEvalResult =
+	| AmorfsAST
+	| ConceptNode
+	| ConceptNode[]
+	| ExpressionValue
+	| ExpressionValue[]
+	| Metadata
+	| Partial<Metadata>
+	| ConceptRef
+	| string
+	| SemanticEvalResult[]
+	| undefined
+	| null;
 
 // Context for collecting references during parsing
 interface ParseContext {
@@ -42,9 +62,14 @@ function mergeMetadata(items: Partial<Metadata>[]): Metadata | null {
 
 export function createSemanticActions(
 	ctx: ParseContext,
-): AmorfsActionDict<unknown> {
+): AmorfsActionDict<SemanticEvalResult> {
+	// Implementation arity matches the grammar; generated .d.ts may use different arg counts
 	return {
-		Document(ws1, topLevelList, _ws2) {
+		Document(
+			_ws1: IterationNode,
+			topLevelList: IterationNode,
+			_ws2: IterationNode,
+		): AmorfsAST {
 			const concepts: ConceptNode[] = [];
 
 			for (const item of topLevelList.children) {
@@ -61,16 +86,16 @@ export function createSemanticActions(
 			} as AmorfsAST;
 		},
 
-		TopLevel(node) {
+		TopLevel(node: NonterminalNode): SemanticEvalResult {
 			return node.eval();
 		},
 
 		Concept_withValue(
-			expressionsOpt,
-			valueBlock,
-			metadataOpt,
-			conceptRefOpt,
-		) {
+			expressionsOpt: IterationNode,
+			valueBlock: NonterminalNode,
+			metadataOpt: IterationNode,
+			conceptRefOpt: IterationNode,
+		): BaseConcept {
 			const expressions: ExpressionValue[] =
 				expressionsOpt.children.length > 0
 					? (expressionsOpt.children[0].eval() as ExpressionValue[])
@@ -105,7 +130,12 @@ export function createSemanticActions(
 			return concept;
 		},
 
-		Concept_expressionOnly(expressions, _ws, metadataOpt, conceptRefOpt) {
+		Concept_expressionOnly(
+			expressions: NonterminalNode,
+			_ws: IterationNode,
+			metadataOpt: IterationNode,
+			conceptRefOpt: IterationNode,
+		): BaseConcept {
 			const exprs: ExpressionValue[] =
 				expressions.eval() as ExpressionValue[];
 			const metadata: Metadata | null =
@@ -136,7 +166,7 @@ export function createSemanticActions(
 			return concept;
 		},
 
-		Concept_reference(conceptRef) {
+		Concept_reference(conceptRef: NonterminalNode): ConceptNode {
 			const ref: ConceptRef = conceptRef.eval() as ConceptRef;
 
 			return {
@@ -150,12 +180,12 @@ export function createSemanticActions(
 
 		// Top-level only: implicit value block (same AST as Concept_withValue with block content)
 		TopLevelConcept_withImplicitValue(
-			expressions,
-			implicitBlock,
-			_ws,
-			metadataOpt,
-			conceptRefOpt,
-		) {
+			expressions: NonterminalNode,
+			implicitBlock: NonterminalNode,
+			_ws: IterationNode,
+			metadataOpt: IterationNode,
+			conceptRefOpt: IterationNode,
+		): BaseConcept {
 			const expressionsList: ExpressionValue[] =
 				expressions.eval() as ExpressionValue[];
 			const children: ConceptNode[] = implicitBlock.eval() as ConceptNode[];
@@ -188,7 +218,11 @@ export function createSemanticActions(
 
 		// ImplicitBlock = (newline space* Association)+
 		// Ohm parses as: newline, space*, (Association)+ — so 3 args; collect all Association nodes
-		ImplicitBlock(_newline, _space, associationIter) {
+		ImplicitBlock(
+			_newline: NonterminalNode,
+			_space: IterationNode,
+			associationIter: IterationNode,
+		): ConceptNode[] {
 			const children: ConceptNode[] = [];
 			for (const assocNode of associationIter.children) {
 				children.push(assocNode.eval() as ConceptNode);
@@ -196,7 +230,13 @@ export function createSemanticActions(
 			return children;
 		},
 
-		ValueBlock(_open, _ws1, valueContentOpt, _ws2, _close) {
+		ValueBlock(
+			_open: TerminalNode,
+			_ws1: IterationNode,
+			valueContentOpt: IterationNode,
+			_ws2: IterationNode,
+			_close: TerminalNode,
+		): ConceptNode[] {
 			if (valueContentOpt.children.length === 0) {
 				return [];
 			}
@@ -205,7 +245,14 @@ export function createSemanticActions(
 
 		// ValueContent = ws* ValueItem (ws* itemSep? ws* ValueItem)*
 		// Args: _leadingWs, firstItem, ws*, itemSep?, ws*, ValueItem*
-		ValueContent(_leadingWs, firstItem, _ws1, _itemSep, _ws2, restItems) {
+		ValueContent(
+			_leadingWs: NonterminalNode,
+			firstItem: NonterminalNode,
+			_ws1: IterationNode,
+			_itemSep: IterationNode,
+			_ws2: IterationNode,
+			restItems: IterationNode,
+		): ConceptNode[] {
 			const result: ConceptNode[] = [];
 
 			// Process first item
@@ -225,23 +272,41 @@ export function createSemanticActions(
 			return result;
 		},
 
-		ValueItem(node) {
+		ValueItem(node: NonterminalNode): SemanticEvalResult {
 			return node.eval();
 		},
 
-		ValueItem_conceptNegativeNumSpace(_minus, _space, _digit, concept) {
+		ValueItem_conceptNegativeNumSpace(
+			_minus: TerminalNode,
+			_space: NonterminalNode,
+			_digit: NonterminalNode,
+			concept: NonterminalNode,
+		): SemanticEvalResult {
 			return concept.eval();
 		},
 
-		ValueItem_conceptNegativeNum(_minus, _digit, concept) {
+		ValueItem_conceptNegativeNum(
+			_minus: TerminalNode,
+			_digit: NonterminalNode,
+			concept: NonterminalNode,
+		): SemanticEvalResult {
 			return concept.eval();
 		},
 
-		ValueItem_conceptPositiveNum(_plus, _digit, concept) {
+		ValueItem_conceptPositiveNum(
+			_plus: TerminalNode,
+			_digit: NonterminalNode,
+			concept: NonterminalNode,
+		): SemanticEvalResult {
 			return concept.eval();
 		},
 
-		Association(metadataOpt, associationOp, _ws, concept) {
+		Association(
+			metadataOpt: IterationNode,
+			associationOp: NonterminalNode,
+			_ws: NonterminalNode,
+			concept: NonterminalNode,
+		): AssociationConcept {
 			const op = associationOp.sourceString.trim();
 			const isIntrinsic = op === "+";
 			const metadata: Metadata | null =
@@ -265,7 +330,13 @@ export function createSemanticActions(
 
 		// Expressions = Expression (ws* "|" ws* Expression)*
 		// Args: firstExpr, ws*, "|"*, ws*, Expression*
-		Expressions(firstExpr, _ws1, _pipes, _ws2, restExprs) {
+		Expressions(
+			firstExpr: NonterminalNode,
+			_ws1: IterationNode,
+			_pipes: IterationNode,
+			_ws2: IterationNode,
+			restExprs: IterationNode,
+		): ExpressionValue[] {
 			const result: ExpressionValue[] = [];
 			result.push(firstExpr.eval() as ExpressionValue);
 
@@ -277,7 +348,10 @@ export function createSemanticActions(
 			return result;
 		},
 
-		Expression(exprValue, metadataOpt) {
+		Expression(
+			exprValue: NonterminalNode,
+			metadataOpt: IterationNode,
+		): ExpressionValue {
 			const expr = exprValue.eval() as ExpressionValue;
 
 			if (metadataOpt.children.length > 0) {
@@ -293,18 +367,26 @@ export function createSemanticActions(
 			return expr;
 		},
 
-		ExpressionValue(node) {
+		ExpressionValue(node: NonterminalNode): SemanticEvalResult {
 			return node.eval();
 		},
 
-		iri(_open, content, _close) {
+		iri(
+			_open: TerminalNode,
+			content: NonterminalNode,
+			_close: TerminalNode,
+		): ExpressionValue {
 			return {
 				value: content.sourceString,
 				type: "iri",
 			} as ExpressionValue;
 		},
 
-		quotedString(_open, content, _close) {
+		quotedString(
+			_open: TerminalNode,
+			content: NonterminalNode,
+			_close: TerminalNode,
+		): ExpressionValue {
 			// Unescape the string content
 			const raw = content.sourceString;
 			const unescaped = raw.replace(/\\(.)/g, "$1");
@@ -314,7 +396,12 @@ export function createSemanticActions(
 			} as ExpressionValue;
 		},
 
-		datetime(date, _t, time, timezoneOpt) {
+		datetime(
+			date: NonterminalNode,
+			_t: TerminalNode,
+			time: NonterminalNode,
+			timezoneOpt: IterationNode,
+		): ExpressionValue {
 			const tz =
 				timezoneOpt.children.length > 0
 					? timezoneOpt.children[0].sourceString
@@ -327,7 +414,15 @@ export function createSemanticActions(
 
 		// number = "-"? digit+ ("." digit+)? exponent? &(space | delimiter | end)
 		// Args: sign?, digits+, "."?, decimal_digits?, exponent?, lookahead
-		number(_sign, _digits, _dot, _decimalDigits, _exponent, _lookahead) {
+		number(
+			this: NonterminalNode,
+			_sign: IterationNode,
+			_digits: IterationNode,
+			_dot: IterationNode,
+			_decimalDigits: IterationNode,
+			_exponent: IterationNode,
+			_lookahead: NonterminalNode,
+		): ExpressionValue {
 			const numStr = this.sourceString.trim();
 			return {
 				value: parseFloat(numStr),
@@ -335,14 +430,20 @@ export function createSemanticActions(
 			} as ExpressionValue;
 		},
 
-		text(_chars) {
+		text(this: NonterminalNode, _chars: IterationNode): ExpressionValue {
 			return {
 				value: this.sourceString.trim(),
 				type: "text",
 			} as ExpressionValue;
 		},
 
-		Metadata(_open, _ws1, contentOpt, _ws2, _close) {
+		Metadata(
+			_open: TerminalNode,
+			_ws1: IterationNode,
+			contentOpt: IterationNode,
+			_ws2: IterationNode,
+			_close: TerminalNode,
+		): Metadata | null {
 			if (contentOpt.children.length === 0) {
 				return null;
 			}
@@ -351,7 +452,11 @@ export function createSemanticActions(
 
 		// MetadataContent = MetadataItem (ws* MetadataItem)*
 		// Args: firstItem, ws*, MetadataItem*
-		MetadataContent(firstItem, _ws, restItems) {
+		MetadataContent(
+			firstItem: NonterminalNode,
+			_ws: IterationNode,
+			restItems: IterationNode,
+		): Metadata | null {
 			const items: Partial<Metadata>[] = [];
 			items.push(firstItem.eval() as Partial<Metadata>);
 
@@ -363,36 +468,49 @@ export function createSemanticActions(
 			return mergeMetadata(items);
 		},
 
-		MetadataItem(node) {
+		MetadataItem(node: NonterminalNode): SemanticEvalResult {
 			return node.eval();
 		},
 
-		languageCode(letter1, letter2) {
+		languageCode(
+			letter1: NonterminalNode,
+			letter2: NonterminalNode,
+		): Partial<Metadata> {
 			return {
 				language: letter1.sourceString + letter2.sourceString,
 			} as Partial<Metadata>;
 		},
 
-		confidence(_tilde, value) {
+		confidence(
+			_tilde: TerminalNode,
+			value: NonterminalNode,
+		): Partial<Metadata> {
 			return {
 				confidence: parseFloat(value.sourceString),
 			} as Partial<Metadata>;
 		},
 
-		importance(sign, digits) {
+		importance(
+			sign: TerminalNode,
+			digits: IterationNode,
+		): Partial<Metadata> {
 			const val = parseInt(digits.sourceString, 10);
 			return {
 				importance: sign.sourceString === "+" ? val : -val,
 			} as Partial<Metadata>;
 		},
 
-		temporal(node) {
+		temporal(node: NonterminalNode): Partial<Metadata> {
 			return {
 				temporal: { start: node.sourceString },
 			} as Partial<Metadata>;
 		},
 
-		temporalRange_startEnd(startDate, _slash, endDateOpt) {
+		temporalRange_startEnd(
+			startDate: NonterminalNode,
+			_slash: TerminalNode,
+			endDateOpt: IterationNode,
+		): Partial<Metadata> {
 			const result: Partial<Metadata> = {
 				temporal: { start: startDate.sourceString },
 			};
@@ -402,13 +520,20 @@ export function createSemanticActions(
 			return result;
 		},
 
-		temporalRange_endOnly(_slash, endDate) {
+		temporalRange_endOnly(
+			_slash: TerminalNode,
+			endDate: NonterminalNode,
+		): Partial<Metadata> {
 			return {
 				temporal: { end: endDate.sourceString },
 			} as Partial<Metadata>;
 		},
 
-		customAttribute(key, _eq, valueNode) {
+		customAttribute(
+			key: NonterminalNode,
+			_eq: TerminalNode,
+			valueNode: NonterminalNode,
+		): Partial<Metadata> {
 			const keyStr = key.sourceString;
 			const value = valueNode.eval();
 
@@ -429,32 +554,43 @@ export function createSemanticActions(
 			} as Partial<Metadata>;
 		},
 
-		conceptRef(_at, identifier) {
+		conceptRef(
+			_at: TerminalNode,
+			identifier: NonterminalNode,
+		): ConceptRef {
 			return {
 				type: "reference",
 				key: identifier.sourceString,
 			} as ConceptRef;
 		},
 
-		attrValue(_chars) {
+		attrValue(this: NonterminalNode, _chars: IterationNode): string {
 			return this.sourceString;
 		},
 
-		Comment(_hash, _content, _end) {
+		Comment(
+			_hash: TerminalNode,
+			_content: IterationNode,
+			_end: NonterminalNode,
+		): undefined {
 			// Comments don't produce AST nodes
 			return undefined;
 		},
 
-		identifier(_first, _rest) {
+		identifier(
+			this: NonterminalNode,
+			_first: NonterminalNode | TerminalNode,
+			_rest: IterationNode,
+		): string {
 			return this.sourceString;
 		},
 
-		_iter(...children) {
+		_iter(...children: NonterminalNode[]): SemanticEvalResult[] {
 			return children.map((c) => c.eval());
 		},
 
-		_terminal() {
+		_terminal(this: TerminalNode): string {
 			return this.sourceString;
 		},
-	};
+	} as unknown as AmorfsActionDict<SemanticEvalResult>;
 }

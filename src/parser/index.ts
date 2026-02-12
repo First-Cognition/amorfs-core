@@ -7,7 +7,7 @@
 
 import grammar from '../grammar/amorfs.ohm-bundle.js';
 import { createSemanticActions } from '../ast/semantics.js';
-import type { AmorfsAST } from '../ast/types';
+import type { AmorfsAST, ConceptNode } from '../ast/types';
 
 /**
  * Parse result type
@@ -71,7 +71,7 @@ export function parse(input: string): ParseOutput {
 	}
   
 	// Create semantic context for collecting references
-	const ctx = { references: {} };
+	const ctx: { references: Record<string, ConceptNode> } = { references: {} };
   
 	// Create semantics and add the toAST operation
 	const semantics = grammar.createSemantics();
