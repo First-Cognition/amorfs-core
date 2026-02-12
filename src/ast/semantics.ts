@@ -16,7 +16,7 @@ import type {
 	ExpressionValue,
 	Metadata,
 	ConceptRef,
-} from "./types.js";
+} from "./types";
 
 /** Union of all possible values returned by semantic action eval() */
 export type SemanticEvalResult =
