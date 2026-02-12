@@ -1,0 +1,7 @@
+# 19_30: Implied concept with vocabulary on associations (nested under named concept)
+person [
+  [
+    - name | foaf:name [x]
+    - email | foaf:mbox [y]
+  ]
+]

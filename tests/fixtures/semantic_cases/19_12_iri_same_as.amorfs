@@ -1,0 +1,4 @@
+# 19_12: sameAs-style — label (same as | owl:sameAs) and IRI value
+person [Tim Berners-Lee
+  - same as | owl:sameAs [<http://dbpedia.org/resource/Tim_Berners-Lee>]
+]

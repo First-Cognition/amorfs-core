@@ -1,0 +1,7 @@
+text [plain]
+number [42]
+decimal [3.14]
+iri [<https://example.com/resource>]
+when [2024-01-15T10:30:00Z]
+date_only [2024-01-15]
+quoted ["value with [brackets] and \"quotes\""]

@@ -1,0 +1,6 @@
+# 19_24: Vocabulary and IRI in one concept (no @ref)
+person [Tim
+  - name | foaf:name [Tim Berners-Lee]
+  - homepage | foaf:homepage [<https://www.w3.org/People/Berners-Lee/>]
+  - same as | owl:sameAs [<http://dbpedia.org/resource/Tim_Berners-Lee>]
+]

@@ -1,0 +1,4 @@
+person [Alice] @alice
+person [Bob] @bob
+database [DB] @db
+doc [content] { author=@alice reviewer=@bob source=@db }

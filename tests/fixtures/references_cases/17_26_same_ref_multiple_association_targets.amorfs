@@ -1,0 +1,3 @@
+person [Alice] @alice
+doc1 [ - @alice ]
+doc2 [ - @alice ]

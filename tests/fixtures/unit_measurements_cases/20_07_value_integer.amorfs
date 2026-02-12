@@ -1,0 +1,5 @@
+# 20_07: Integer value
+measurement [
+  - value [42]
+  - unit [items]
+]

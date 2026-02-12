@@ -1,0 +1,4 @@
+person [Alice] @a
+person [Bob] @b
+source [Repo] @src
+paper [ - @a, - @b, + @src ]

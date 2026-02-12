@@ -1,0 +1,4 @@
+# 19_16: Vocabulary label with IRI value (homepage | foaf:homepage [<...>])
+person [Tim
+  - homepage | foaf:homepage [<https://www.w3.org/People/Berners-Lee/>]
+]

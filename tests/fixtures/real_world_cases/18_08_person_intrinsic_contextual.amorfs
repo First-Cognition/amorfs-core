@@ -1,0 +1,8 @@
+# 18_08 Person with intrinsic (+) and contextual (-) associations
+
+person [Alex Morgan
+  + birth date [1990-05-15]
+  + nationality [Canadian]
+  - job title [Software Engineer]
+  - email [alex@company.com]
+]

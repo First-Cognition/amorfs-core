@@ -1,0 +1,7 @@
+# 19_05: Schema.org (schema:name, schema:jobTitle, schema:email, schema:url)
+person [Sarah Chen
+  - name | schema:name [Sarah Chen]
+  - job title | schema:jobTitle [Materials Scientist]
+  - email | schema:email [sarah@university.edu]
+  - url | schema:url [<https://materials.edu/chen>]
+]

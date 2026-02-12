@@ -1,0 +1,3 @@
+database [Source] @source_db
+fact1 [A] { source=@source_db }
+fact2 [B] { source=@source_db }

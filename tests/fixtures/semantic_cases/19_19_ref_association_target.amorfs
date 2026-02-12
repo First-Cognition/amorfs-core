@@ -1,0 +1,5 @@
+# 19_19: Reference as association target (knows [@bob])
+person [Bob] @bob
+person [Alice
+  - knows [@bob]
+]

@@ -1,0 +1,2 @@
+repo [main] @repo
+item [data] { version=1 source=@repo }

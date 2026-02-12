@@ -1,0 +1,3 @@
+leaf [x] @leaf
+inner [ - @leaf ] @inner
+root [ - @inner ]

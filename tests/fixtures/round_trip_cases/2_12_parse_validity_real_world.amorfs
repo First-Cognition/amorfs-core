@@ -1,0 +1,2 @@
+contact [ Alice, - phone [555-1234], - email [alice@example.com], + birth_date [1990-05-20] ] @alice
+product [ Widget, - price [ + amount [29.99], + currency [USD] ], - description [A useful widget] ] {en}

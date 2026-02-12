@@ -1,0 +1,5 @@
+person [Alice] @alice
+database [DB] @db
+@alice
+doc [ - @alice, - @db ]
+fact [claim] { source=@db verified_by=@alice }

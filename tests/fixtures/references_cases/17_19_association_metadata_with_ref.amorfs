@@ -1,0 +1,3 @@
+database [DB] @db
+person [Jane] @ref
+root [ { source=@db } - @ref ]

@@ -1,0 +1,7 @@
+# 19_03: FOAF-style (name, mbox, homepage, workplaceHomepage)
+person [Dr. Tim
+  - name | foaf:name [Tim Berners-Lee]
+  - email | foaf:mbox [timbl@w3.org]
+  - homepage | foaf:homepage [<https://www.w3.org/People/Berners-Lee/>]
+  - works for | foaf:workplaceHomepage [<https://www.w3.org>]
+]

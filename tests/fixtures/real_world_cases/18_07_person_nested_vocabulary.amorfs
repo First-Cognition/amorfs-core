@@ -1,0 +1,9 @@
+# 18_07 Person with nested vocabulary (works for with schema:name inside)
+
+person [Dr. Lee
+  - name | schema:name [Dr. Lee]
+  - works for | schema:worksFor [
+    - name | schema:name [Institution Name]
+    - url | schema:url [<https://institution.example.org>]
+  ]
+]

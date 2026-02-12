@@ -1,0 +1,16 @@
+# 18_24 Dense real-world: many siblings (contact methods / address lines)
+
+business card [
+  Dense Contact
+  - email [a@b.com]
+  - phone [555-0001]
+  - fax [555-0002]
+  - mobile [555-0003]
+  - linkedin [<https://linkedin.com/in/x>]
+  - twitter [@x]
+  - street [1 Main St]
+  - city [Boston]
+  - state [MA]
+  - postal_code [02101]
+  - country [USA]
+]

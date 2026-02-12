@@ -1,0 +1,6 @@
+# 20_21: Measurement with custom association (method, instrument)
+measurement [
+  - value [25]
+  - unit [°C]
+  - method [calibrated]
+]

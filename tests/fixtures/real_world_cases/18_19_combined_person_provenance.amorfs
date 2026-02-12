@@ -1,0 +1,8 @@
+# 18_19 Person (semantic vocabulary) + provenance (source=@ref)
+
+source [Official Database] @official_db
+
+person [Jane Doe
+  - name | foaf:name [Jane Doe]
+  - email | schema:email [jane@example.com]
+] {source=@official_db ~0.95}

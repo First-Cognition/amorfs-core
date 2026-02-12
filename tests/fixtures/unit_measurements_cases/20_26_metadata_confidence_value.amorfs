@@ -1,0 +1,5 @@
+# 20_26: Confidence on value expression itself
+measurement [
+  - value [42.5 {~0.95}]
+  - unit [kg]
+]

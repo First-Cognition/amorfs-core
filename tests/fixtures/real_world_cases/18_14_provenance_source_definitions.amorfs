@@ -1,0 +1,10 @@
+# 18_14 Source definitions with @ref (sensor, process) — definition only
+
+sensor [Temperature Sensor T-100
+  - model [T-100]
+  - unit [Celsius]
+] @temp_sensor
+
+measurement_process [Automated Collection
+  - frequency [every 5 minutes]
+] @auto_collection

@@ -1,0 +1,5 @@
+# 20_32: Measurement with @ref
+weight [
+  - value [2]
+  - unit [kg]
+] @weight_ref

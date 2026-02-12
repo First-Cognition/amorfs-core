@@ -1,0 +1,7 @@
+# 19_04: Dublin Core (dc:title, dc:creator, dc:date, dc:subject)
+document [Research Paper
+  - title | dc:title [Advances in Machine Learning]
+  - creator | dc:creator [Dr. Jane Smith]
+  - date | dc:date [2024-03-15]
+  - subject | dc:subject [Machine Learning]
+]

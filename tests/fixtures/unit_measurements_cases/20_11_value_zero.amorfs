@@ -1,0 +1,5 @@
+# 20_11: Zero value
+measurement [
+  - value [0]
+  - unit [meters]
+]

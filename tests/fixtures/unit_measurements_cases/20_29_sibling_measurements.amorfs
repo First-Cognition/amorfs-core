@@ -1,0 +1,11 @@
+# 20_29: Multiple sibling measurements under one concept
+bounds [
+  - min [
+    - value [0]
+    - unit [m]
+  ]
+  - max [
+    - value [100]
+    - unit [m]
+  ]
+]

@@ -1,0 +1,2 @@
+# 19_10: Expression-only concept with vocabulary (no value block)
+something | foaf:primaryTopic @topic_ref

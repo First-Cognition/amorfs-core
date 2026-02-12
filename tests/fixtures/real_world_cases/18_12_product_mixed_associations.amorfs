@@ -1,0 +1,14 @@
+# 18_12 Product with mixed intrinsic (price) and contextual (features)
+
+product [
+  Smart Watch
+  - price [
+    + amount [299]
+    + currency [USD]
+  ]
+  - features [
+    - heart rate [yes]
+    - gps [yes]
+    - water resistant [50m]
+  ]
+]

@@ -1,0 +1,3 @@
+# 19_18: Multiple @ref definitions (two or more named concepts)
+person [Alice] @alice
+organization [Acme] @acme

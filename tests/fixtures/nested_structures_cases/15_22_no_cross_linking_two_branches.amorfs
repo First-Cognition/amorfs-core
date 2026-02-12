@@ -1,0 +1,1 @@
+root [ - branch_a [ - a1 [ x ], - a2 [ y ] ], - branch_b [ - b1 [ p ], - b2 [ q ] ] ]

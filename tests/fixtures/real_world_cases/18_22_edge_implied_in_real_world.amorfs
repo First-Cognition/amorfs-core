@@ -1,0 +1,9 @@
+# 18_22 Real-world with implied concept (address with no main expression)
+
+business card [
+  Person
+  - address [
+    + street [10 Main St]
+    + city [Boston]
+  ]
+]

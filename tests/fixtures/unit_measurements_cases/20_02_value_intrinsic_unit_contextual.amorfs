@@ -1,0 +1,5 @@
+# 20_02: Value intrinsic, unit contextual
+measurement [
+  + value [42]
+  - unit [kg]
+]

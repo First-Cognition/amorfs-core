@@ -1,0 +1,4 @@
+# 19_08: Vocabulary with per-expression language metadata
+concept [Term
+  - preferred label | skos:prefLabel [Organic Chemistry {en} | Chimie Organique {fr}]
+]

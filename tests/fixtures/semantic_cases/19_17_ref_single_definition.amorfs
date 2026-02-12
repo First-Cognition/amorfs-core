@@ -1,0 +1,2 @@
+# 19_17: Single @ref definition (concept with @key)
+person [Alice] @person_1

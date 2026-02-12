@@ -1,0 +1,5 @@
+# 20_04: Value and unit both intrinsic
+measurement [
+  + value [3.14]
+  + unit [radians]
+]

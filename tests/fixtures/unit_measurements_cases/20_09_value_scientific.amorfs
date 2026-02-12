@@ -1,0 +1,5 @@
+# 20_09: Scientific notation value
+measurement [
+  - value [6.022e23]
+  - unit [per mole]
+]

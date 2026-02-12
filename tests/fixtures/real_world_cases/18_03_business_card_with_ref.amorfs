@@ -1,0 +1,12 @@
+# 18_03 Business card with concept reference (@ref)
+
+organization [Acme Corp] @org_ref
+
+business card [
+  John Smith
+  - role [Engineer]
+  - employer [@org_ref]
+  - contact [
+    - email [john@acme.com]
+  ]
+] @card_ref

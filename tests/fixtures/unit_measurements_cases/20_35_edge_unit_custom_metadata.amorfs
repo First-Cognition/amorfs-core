@@ -1,0 +1,5 @@
+# 20_35: Unit with custom metadata on unit concept
+measurement [
+  - value [5]
+  - unit [meters] { source=SI }
+]

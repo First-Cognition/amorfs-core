@@ -1,0 +1,2 @@
+other [y] @other_ref
+concept [x] { related=@other_ref }

@@ -1,0 +1,15 @@
+# 18_05 Multiple top-level business cards
+
+business card [
+  Alice Brown
+  - role [Designer]
+  - contact [ - email [alice@b.com] ]
+  - address [ - city [London] ]
+]
+
+business card [
+  Bob Green
+  - role [Developer]
+  - contact [ - phone [555-1234] ]
+  - address [ - street [10 Main St] - city [NYC] ]
+]

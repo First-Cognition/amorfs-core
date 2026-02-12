@@ -1,0 +1,2 @@
+fact [Earth is round] { source=@defined_later }
+database [DB] @defined_later

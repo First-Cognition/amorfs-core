@@ -1,0 +1,5 @@
+# 20_24: Metadata on unit association
+measurement [
+  - value [10]
+  - unit [meters] { en }
+]

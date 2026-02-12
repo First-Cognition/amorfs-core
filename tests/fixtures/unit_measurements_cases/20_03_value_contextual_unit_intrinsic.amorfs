@@ -1,0 +1,5 @@
+# 20_03: Value contextual, unit intrinsic
+measurement [
+  - value [100]
+  + unit [percent]
+]

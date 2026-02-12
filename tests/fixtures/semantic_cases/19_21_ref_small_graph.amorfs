@@ -1,0 +1,6 @@
+# 19_21: Small graph — two entities with @ref, one references the other
+person [Alice] @alice
+organization [Acme] @acme
+employment [Role
+  - works at [@acme]
+] { author=@alice }

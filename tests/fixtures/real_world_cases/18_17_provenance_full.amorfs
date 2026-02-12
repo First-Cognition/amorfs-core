@@ -1,0 +1,11 @@
+# 18_17 Full provenance document (sources + business-card with metadata)
+
+sensor [Temperature Sensor] @temp_sensor
+
+author [Data Team] @data_team
+
+business_card [
+  Dr. Chen
+  - contact [ - email [chen@example.com] ]
+  - address [ - city [Paris] ]
+] {source=@temp_sensor author=@data_team 2024-01-01 ~0.9}

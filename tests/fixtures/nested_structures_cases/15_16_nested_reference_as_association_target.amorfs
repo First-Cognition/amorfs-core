@@ -1,0 +1,2 @@
+inner [ x ] @inner
+outer [ - ref [ @inner ] ]

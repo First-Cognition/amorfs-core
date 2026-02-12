@@ -1,0 +1,2 @@
+person [Alice] @alice
+contact [ - name [Alice], - ref [@alice] ]

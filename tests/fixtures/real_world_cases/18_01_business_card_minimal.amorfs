@@ -1,0 +1,9 @@
+# 18_01 Minimal business card: single person, one role, one contact
+
+business card [
+  Jane Doe
+  - role [Developer]
+  - contact [
+    - email [jane@example.com]
+  ]
+]

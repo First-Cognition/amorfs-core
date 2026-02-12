@@ -1,0 +1,7 @@
+# 20_30: Implied concept with value and unit
+container [
+  - quantity [
+    - value [7]
+    - unit [items]
+  ]
+]

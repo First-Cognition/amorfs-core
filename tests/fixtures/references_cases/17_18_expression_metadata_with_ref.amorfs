@@ -1,0 +1,2 @@
+vocab [terms] @vocab
+term { source=@vocab } [value]

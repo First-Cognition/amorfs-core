@@ -1,0 +1,7 @@
+# 19_09: Vocabulary on nested association (two levels)
+person [Alice
+  - works for | foaf:workplaceHomepage [
+    - name | schema:name [Acme Corp]
+    - url | schema:url [<https://acme.example.com>]
+  ]
+]

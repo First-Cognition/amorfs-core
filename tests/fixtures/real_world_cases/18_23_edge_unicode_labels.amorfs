@@ -1,0 +1,8 @@
+# 18_23 Real-world with Unicode in names and labels
+
+business card [
+  陈博士
+  - 温度 [sensor]
+  - product [スマートウォッチ]
+  - contact [ - email [test@例.jp] ]
+]

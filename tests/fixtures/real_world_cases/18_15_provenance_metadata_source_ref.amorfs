@@ -1,0 +1,12 @@
+# 18_15 Concept with source=@ref and confidence/temporal metadata
+
+sensor [Temperature Sensor] @temp_sensor
+
+reading [Temperature Reading
+  - value [22.5]
+  - unit [Celsius]
+] {source=@temp_sensor ~0.95 +1}
+
+fact [Observation dated 2024
+  - note [Recorded]
+] {source=@temp_sensor 2024-03-15}

@@ -1,0 +1,5 @@
+# 19_02: Multiple vocabularies on one label (human | foaf:name | schema:name)
+person [Jane
+  - name | foaf:name | schema:name [Jane Doe]
+  - title | dc:title | schema:name [Researcher]
+]

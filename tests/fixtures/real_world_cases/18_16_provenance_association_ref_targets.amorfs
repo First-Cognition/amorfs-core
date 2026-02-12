@@ -1,0 +1,11 @@
+# 18_16 Concept with association targets as @ref (measured_by, collected_via)
+
+sensor [Temperature Sensor] @temp_sensor
+
+measurement_process [Automated Collection] @auto_collection
+
+reading [Temperature Reading
+  - value [22.5]
+  - measured_by [@temp_sensor]
+  - collected_via [@auto_collection]
+]

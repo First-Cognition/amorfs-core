@@ -1,0 +1,8 @@
+# 19_06: SKOS (skos:prefLabel, skos:altLabel, skos:broader, skos:narrower, skos:related)
+concept [Organic Chemistry
+  - preferred label | skos:prefLabel [Organic Chemistry {en}]
+  - alternate label | skos:altLabel [Carbon Chemistry {en}]
+  - broader | skos:broader [Chemistry]
+  - narrower | skos:narrower [Biochemistry]
+  - related | skos:related [Molecular Biology]
+]

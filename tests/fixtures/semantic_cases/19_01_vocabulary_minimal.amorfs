@@ -1,0 +1,4 @@
+# 19_01: Minimal — human term and single vocabulary term (label | prefix:term)
+person [Alice
+  - name | foaf:name [Alice]
+]

@@ -1,0 +1,4 @@
+# 19_13: Multiple IRI values in one concept (multiple sameAs as siblings)
+entity [Tim
+  - same as | owl:sameAs [<http://dbpedia.org/resource/Tim_Berners-Lee>, <https://www.w3.org/People/Berners-Lee/>]
+]

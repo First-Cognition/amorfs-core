@@ -1,0 +1,6 @@
+# 18_21 Minimal real-world: single contact-like concept
+
+contact [
+  name [Minimal]
+  - email ["a@b.com"]
+]

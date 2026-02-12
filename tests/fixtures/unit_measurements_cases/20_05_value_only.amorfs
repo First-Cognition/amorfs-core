@@ -1,0 +1,4 @@
+# 20_05: Value only (no unit)
+measurement [
+  - value [7]
+]

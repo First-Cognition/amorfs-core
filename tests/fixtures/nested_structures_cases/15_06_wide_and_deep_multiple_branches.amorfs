@@ -1,0 +1,1 @@
+org [ - dept_a [ - faculty [ - role [ Professor ] ], - faculty [ - role [ Associate ] ] ], - dept_b [ - faculty [ - role [ Lecturer ] ] ] ]

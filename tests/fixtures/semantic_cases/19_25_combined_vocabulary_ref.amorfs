@@ -1,0 +1,7 @@
+# 19_25: Vocabulary and @ref (source=@ref or association target @ref)
+person [Bob] @bob
+source [DB] @db
+person [Alice
+  - name | foaf:name [Alice]
+  - knows [@bob]
+] { source=@db }

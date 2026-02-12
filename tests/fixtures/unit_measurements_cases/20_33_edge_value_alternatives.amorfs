@@ -1,0 +1,5 @@
+# 20_33: Value with multiple alternatives (ambiguous but valid)
+measurement [
+  - value [1.5 | 1.50]
+  - unit [m]
+]

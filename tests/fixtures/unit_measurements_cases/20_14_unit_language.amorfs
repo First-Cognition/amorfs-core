@@ -1,0 +1,5 @@
+# 20_14: Unit with language metadata
+measurement [
+  - value [98.6]
+  - unit [degrees F {en} | Celsius {en}]
+]

@@ -1,0 +1,9 @@
+# 18_11 Product with nested associations (price: amount + currency)
+
+product [
+  Widget
+  - price [
+    + amount [299]
+    + currency [USD | $ {en}]
+  ]
+]

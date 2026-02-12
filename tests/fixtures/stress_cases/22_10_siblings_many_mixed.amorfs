@@ -1,0 +1,22 @@
+mixed [
+bare1
+- ctx1 [x]
++ intr1 [y]
+bare2
+- ctx2 [a]
++ intr2 [b]
+bare3
+bare4
+- ctx3 [c]
++ intr3 [d]
+bare5
+- ctx4 [e]
+bare6
+bare7
++ intr4 [f]
+- ctx5 [g]
+bare8
+bare9
+bare10
+- ctx6 [h]
+]

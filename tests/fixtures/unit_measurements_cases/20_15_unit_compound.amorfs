@@ -1,0 +1,5 @@
+# 20_15: Compound unit (multi-word / slash)
+measurement [
+  - value [60]
+  - unit [kilometers per hour | km/h]
+]

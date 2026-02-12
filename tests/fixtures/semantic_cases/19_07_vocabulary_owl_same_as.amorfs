@@ -1,0 +1,4 @@
+# 19_07: OWL (owl:sameAs) — label human + owl:sameAs, value IRI
+entity [Example
+  - same as | owl:sameAs [<http://example.org/id>]
+]

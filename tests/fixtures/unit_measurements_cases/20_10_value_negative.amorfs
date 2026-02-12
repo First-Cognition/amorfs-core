@@ -1,0 +1,5 @@
+# 20_10: Negative numeric value (space after - so contextual association)
+measurement [
+  - value [-10]
+  - unit [Celsius]
+]

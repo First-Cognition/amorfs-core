@@ -1,0 +1,7 @@
+# 19_22: Same @ref used in multiple places (single definition, multiple uses)
+source [Database] @db
+concept [A] { source=@db }
+concept [B
+  - from [@db]
+]
+concept [C] { source=@db }

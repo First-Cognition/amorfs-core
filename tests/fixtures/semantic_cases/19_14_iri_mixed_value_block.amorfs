@@ -1,0 +1,4 @@
+# 19_14: IRI and non-IRI in same value block
+link [Mixed
+  - link [<https://example.com>, see also]
+]

@@ -1,0 +1,11 @@
+# 18_20 Full integration: card + @ref + vocabulary + multilingual + provenance
+
+organization [Acme] @acme
+
+business card [
+  Dr. Kim {en} | 金博士 {zh}
+  - name | foaf:name [Dr. Kim]
+  - employer [@acme]
+  - contact [ - email [kim@acme.com] ]
+  - address [ - city [Seoul {en} | ソウル {ja}] ]
+] {source=@acme 2024-01-01 ~0.9}

@@ -1,0 +1,7 @@
+# 20_20: Full measurement — value, unit, precision, uncertainty
+measurement [
+  - value [12.345]
+  - unit [grams | g]
+  - precision [0.001]
+  - uncertainty [0.002 {~0.95}]
+]

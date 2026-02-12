@@ -1,0 +1,8 @@
+# 18_10 Product with multiple expressions per concept (en/fr/ja)
+
+product [
+  Smart Watch {en} | Montre Intelligente {fr} | スマートウォッチ {ja}
+  - description [
+    A versatile device {en} | Un appareil polyvalent {fr} | 多機能デバイス {ja}
+  ]
+]

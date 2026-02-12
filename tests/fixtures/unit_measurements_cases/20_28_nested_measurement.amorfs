@@ -1,0 +1,11 @@
+# 20_28: Nested measurement (measurement as association target)
+dimensions [
+  - length [
+    - value [5]
+    - unit [m]
+  ]
+  - width [
+    - value [3]
+    - unit [m]
+  ]
+]

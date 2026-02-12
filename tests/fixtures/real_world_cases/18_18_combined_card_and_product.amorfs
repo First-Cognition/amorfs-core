@@ -1,0 +1,14 @@
+# 18_18 Document mixing business card and product
+
+business card [
+  Alice
+  - role [Manager]
+  - contact [ - email [alice@co.com] ]
+  - address [ - city [Boston] ]
+]
+
+product [
+  Smart Watch {en} | Montre {fr}
+  - price [ + amount [199] + currency [USD] ]
+  - features [ - gps [yes] ]
+]

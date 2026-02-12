@@ -1,0 +1,6 @@
+# 20_19: Measurement with uncertainty and confidence on uncertainty
+measurement [
+  - value [5.2]
+  - unit [cm]
+  - uncertainty [0.1 {~0.95}]
+]

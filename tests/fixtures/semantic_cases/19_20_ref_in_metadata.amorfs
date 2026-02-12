@@ -1,0 +1,3 @@
+# 19_20: Reference in metadata (source=@db)
+source [Database] @nasa_db
+concept [value] { source=@nasa_db }

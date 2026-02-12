@@ -1,0 +1,2 @@
+main [Primary] @main
+alias {en} | Alias {fr} { source=@main } @alias_ref

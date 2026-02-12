@@ -1,0 +1,5 @@
+# 20_01: Minimal — value and unit both contextual
+measurement [
+  - value [1.5]
+  - unit [meters]
+]

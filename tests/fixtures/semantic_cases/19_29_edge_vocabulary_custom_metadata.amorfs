@@ -1,0 +1,5 @@
+# 19_29: Vocabulary with custom metadata on concept
+person [Alice
+  - name | foaf:name [Alice]
+] { verified=true source=@db } @alice
+source [Database] @db

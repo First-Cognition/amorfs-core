@@ -1,0 +1,5 @@
+# 20_34: Empty value block with only value/unit (implied root)
+[
+  - value [0]
+  - unit [unknown]
+]

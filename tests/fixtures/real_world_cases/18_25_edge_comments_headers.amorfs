@@ -1,0 +1,14 @@
+# 18_25 Real-world with comments and section headers
+
+# Business card
+# ---
+business card [
+  # Contact person
+  Jane Doe
+  - role [Engineer]
+  # Contact block
+  - contact [
+    - email ["jane@example.com"]
+  ]
+]
+# End of card

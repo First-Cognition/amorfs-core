@@ -1,0 +1,12 @@
+# 18_04 Business card with metadata (temporal, confidence, language)
+
+business card [
+  Marie Curie {2024-01-01}
+  - role [physicist {en} | physicienne {fr}] {~0.95}
+  - contact [
+    - email [marie@example.org] {~1.0}
+  ]
+  - address [
+    - city [Paris]
+  ]
+]

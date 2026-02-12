@@ -1,0 +1,2 @@
+database [NASA] @nasa_db
+fact [Earth is round] { source=@nasa_db }

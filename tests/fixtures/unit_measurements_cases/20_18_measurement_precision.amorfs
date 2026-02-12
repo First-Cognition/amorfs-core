@@ -1,0 +1,6 @@
+# 20_18: Measurement with precision
+measurement [
+  - value [12.345]
+  - unit [grams]
+  - precision [0.001]
+]

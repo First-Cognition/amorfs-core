@@ -1,0 +1,4 @@
+# 19_28: Many vocabulary alternatives (five+ expressions on one label)
+person [Jane
+  - name | foaf:name | schema:name | dc:creator | rdfs:label [Jane Doe]
+]

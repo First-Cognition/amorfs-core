@@ -1,0 +1,10 @@
+# 18_06 Person with FOAF/schema multiple expressions per label
+
+person [Sarah Chen
+  - name | foaf:name | schema:name [Sarah Chen]
+  - email | foaf:mbox | schema:email [sarah@example.edu]
+  - works for | foaf:workplaceHomepage | schema:worksFor [
+    - name | schema:name [University Research Center]
+    - url | schema:url [<https://university.edu>]
+  ]
+]

@@ -1,0 +1,5 @@
+# 20_22: Metadata on measurement concept
+measurement [
+  - value [1]
+  - unit [m]
+] { 2024-01-15 }

@@ -1,0 +1,10 @@
+# 19_26: Full semantic document (vocabulary + IRI + @ref, multi-concept)
+source [NASA DB] @nasa_db
+person [Tim
+  - name | foaf:name | schema:name [Tim Berners-Lee]
+  - homepage | foaf:homepage [<https://www.w3.org/People/Berners-Lee/>]
+  - same as | owl:sameAs [<http://dbpedia.org/resource/Tim_Berners-Lee>]
+] @tim
+citation [Paper
+  - author [@tim]
+] { source=@nasa_db }

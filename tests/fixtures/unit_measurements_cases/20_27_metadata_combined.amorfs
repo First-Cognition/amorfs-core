@@ -1,0 +1,5 @@
+# 20_27: Combined metadata (temporal + confidence on concept)
+measurement [
+  - value [10]
+  - unit [kg]
+] { 2024-01-01 ~0.9 }

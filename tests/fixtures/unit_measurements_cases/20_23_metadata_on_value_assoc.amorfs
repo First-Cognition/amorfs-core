@@ -1,0 +1,5 @@
+# 20_23: Metadata on value association (metadata before op so on association node)
+measurement [
+  { ~0.99 } - value [3.14]
+  - unit [radians]
+]

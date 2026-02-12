@@ -1,0 +1,8 @@
+# 18_13 Product with description as multi-expression block
+
+product [
+  Device {en} | Appareil {fr}
+  - description [
+    A versatile device {en} | Un appareil polyvalent {fr} | 多機能デバイス {ja}
+  ]
+]

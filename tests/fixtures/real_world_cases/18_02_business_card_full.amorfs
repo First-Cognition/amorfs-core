@@ -1,0 +1,14 @@
+# 18_02 Full business card: name, role (multilingual), contact, address
+
+business card [
+  Alan Turing
+  - role [mathematician {en} | mathématicien {fr}]
+  - contact [
+    - email [alan@turing.com]
+    - phone [07949 212255]
+  ]
+  - address [
+    - street {en} | rue {fr} [Bletchley Park]
+    - city [Buckinghamshire]
+  ]
+]

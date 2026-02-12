@@ -1,0 +1,5 @@
+# 20_08: Decimal value
+measurement [
+  - value [1.75]
+  - unit [meters]
+]

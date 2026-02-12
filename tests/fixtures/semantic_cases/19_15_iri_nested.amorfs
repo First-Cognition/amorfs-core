@@ -1,0 +1,6 @@
+# 19_15: IRI in nested association (person -> works for -> url [<...>])
+person [Alice
+  - works for [
+    - url [<https://acme.example.com>]
+  ]
+]
