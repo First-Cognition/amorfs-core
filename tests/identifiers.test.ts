@@ -36,12 +36,6 @@ function loadFixture(name: string): string {
 	return readFileSync(join(identifiersDir, name), "utf-8");
 }
 
-function getFirstExpressionValue(concept: ConceptNode): string | number | null {
-	if (concept.kind !== "base") return null;
-	if (concept.expressions.length === 0) return null;
-	return concept.expressions[0].value;
-}
-
 describe("Section 13 Identifiers and Reference Names (13_)", () => {
 	// -------------------------------------------------------------------------
 	// 1. Valid identifier formation (lexical)

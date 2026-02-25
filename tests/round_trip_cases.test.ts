@@ -49,16 +49,6 @@ function collectBaseConcepts(node: ConceptNode): BaseConcept[] {
 	return out;
 }
 
-/** Find first base concept whose first expression value equals label (at any depth). */
-function findConceptByFirstExpression(
-	root: ConceptNode,
-	label: string | number,
-): BaseConcept | undefined {
-	return collectBaseConcepts(root).find(
-		(c) => getFirstExpressionValue(c) === label,
-	);
-}
-
 /** Get association children of a concept (has_a associations). */
 function getAssociationChildren(concept: ConceptNode): AssociationConcept[] {
 	return concept.children.filter(
@@ -95,62 +85,6 @@ function maxDepth(node: ConceptNode): number {
 		d = Math.max(d, childDepth);
 	}
 	return d;
-}
-
-/** Check if any node in tree has metadata with temporal. */
-function hasTemporalMetadata(node: ConceptNode): boolean {
-	const check = (n: ConceptNode): boolean => {
-		if (n.metadata?.temporal) return true;
-		for (const c of n.children) {
-			if (check(c)) return true;
-			if (
-				c.kind === "association" &&
-				c.children[0] &&
-				check(c.children[0])
-			)
-				return true;
-		}
-		return false;
-	};
-	return check(node);
-}
-
-/** Check if any node has metadata with confidence. */
-function hasConfidenceMetadata(node: ConceptNode): boolean {
-	const check = (n: ConceptNode): boolean => {
-		if (n.metadata?.confidence !== undefined) return true;
-		for (const c of n.children) {
-			if (check(c)) return true;
-			if (
-				c.kind === "association" &&
-				c.children[0] &&
-				check(c.children[0])
-			)
-				return true;
-		}
-		return false;
-	};
-	return check(node);
-}
-
-/** Check if any node has custom metadata (custom attr or source). */
-function hasCustomMetadata(node: ConceptNode): boolean {
-	const check = (n: ConceptNode): boolean => {
-		if (n.metadata?.custom && Object.keys(n.metadata.custom).length > 0)
-			return true;
-		if (n.metadata?.source) return true;
-		for (const c of n.children) {
-			if (check(c)) return true;
-			if (
-				c.kind === "association" &&
-				c.children[0] &&
-				check(c.children[0])
-			)
-				return true;
-		}
-		return false;
-	};
-	return check(node);
 }
 
 describe("Section 21 Round-trip and Structural Equivalence (2_)", () => {

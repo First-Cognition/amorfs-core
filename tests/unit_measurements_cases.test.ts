@@ -44,13 +44,6 @@ function findAssociationByLabel(
 	) as AssociationConcept | undefined;
 }
 
-/** Get expressions on the target concept of an association (label expressions). */
-function getLabelExpressions(assoc: AssociationConcept): ExpressionValue[] {
-	const target = assoc.children[0];
-	if (target?.kind === "base") return target.expressions;
-	return [];
-}
-
 /** Get the inner value concept from a value/unit association (target may have one child holding the value). */
 function getTargetValueConcept(assoc: AssociationConcept): BaseConcept | null {
 	const target = assoc.children[0];

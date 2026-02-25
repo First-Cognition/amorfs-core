@@ -62,11 +62,6 @@ function getAssociationTarget(
 	return target?.kind === "base" ? target : undefined;
 }
 
-/** Collect all expression values from a base concept (for multiple expressions). */
-function getExpressionValues(concept: BaseConcept): (string | number)[] {
-	return concept.expressions.map((e) => e.value);
-}
-
 /** Find a base concept anywhere under root that has first expression equal to value. */
 function findConceptByFirstExpression(
 	root: ConceptNode,

@@ -31,12 +31,6 @@ function loadFixture(name: string): string {
 	return readFileSync(join(metadataDir, name), "utf-8");
 }
 
-function getFirstExpressionValue(concept: ConceptNode): string | number | null {
-	if (concept.kind !== "base") return null;
-	if (concept.expressions.length === 0) return null;
-	return concept.expressions[0].value;
-}
-
 function getChildAsAssociation(
 	concept: ConceptNode,
 	index: number,

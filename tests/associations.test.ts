@@ -48,14 +48,6 @@ function getChildAsAssociation(
 	return child?.kind === "association" ? child : null;
 }
 
-function getChildAsBase(
-	concept: ConceptNode,
-	index: number,
-): BaseConcept | null {
-	const child = concept.children[index];
-	return child?.kind === "base" ? child : null;
-}
-
 /** Association target's first value: from nested value block or target's first expression. */
 function getAssociationTargetFirstValue(
 	assoc: AssociationConcept,

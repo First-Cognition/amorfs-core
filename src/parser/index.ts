@@ -61,9 +61,9 @@ export function parse(input: string): ParseOutput {
 		const posMatch = errorMessage.match(/Line (\d+), col (\d+)/);
 		const position = posMatch
 			? {
-					line: parseInt(posMatch[1], 10),
-					column: parseInt(posMatch[2], 10),
-				}
+				line: parseInt(posMatch[1], 10),
+				column: parseInt(posMatch[2], 10),
+			}
 			: undefined;
 
 		return {

@@ -41,18 +41,6 @@ function getFirstExpressionValue(concept: ConceptNode): string | number | null {
 	return concept.expressions[0].value;
 }
 
-function findAssociationByRole(
-	concept: ConceptNode,
-	role: string,
-): AssociationConcept | undefined {
-	return concept.children.find(
-		(ch): ch is AssociationConcept =>
-			ch.kind === "association" &&
-			ch.children[0]?.kind === "base" &&
-			getFirstExpressionValue(ch.children[0]) === role,
-	);
-}
-
 describe("Section 17 References with Full Usage (17_)", () => {
 	// -------------------------------------------------------------------------
 	// 1. Definition of references

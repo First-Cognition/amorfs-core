@@ -17,7 +17,6 @@ import { fileURLToPath } from "url";
 import {
 	parse,
 	isValid,
-	parseOrThrow,
 	type ConceptNode,
 	type BaseConcept,
 	type AssociationConcept,
@@ -421,10 +420,6 @@ describe("Section 22 Stress and Boundaries (22_)", () => {
 			expect(typeof exprVal).toBe("string");
 			const expectedStart = "Lorem ipsum dolor";
 			expect((exprVal as string).startsWith(expectedStart)).toBe(true);
-			const sourceSnippet = input.slice(
-				input.indexOf("Lorem"),
-				input.indexOf("]"),
-			);
 			expect((exprVal as string).length).toBeGreaterThanOrEqual(500);
 		});
 

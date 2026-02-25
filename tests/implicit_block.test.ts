@@ -13,7 +13,6 @@ import { readFileSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 import {
-	parse,
 	isValid,
 	parseOrThrow,
 	type ConceptNode,
