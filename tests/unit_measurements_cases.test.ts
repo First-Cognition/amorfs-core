@@ -20,7 +20,6 @@ import {
 	type ConceptNode,
 	type BaseConcept,
 	type AssociationConcept,
-	type ExpressionValue,
 } from "../src/index.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));

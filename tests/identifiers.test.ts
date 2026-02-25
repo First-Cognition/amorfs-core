@@ -22,7 +22,6 @@ import {
 	parse,
 	isValid,
 	parseOrThrow,
-	type ConceptNode,
 	type BaseConcept,
 	type AssociationConcept,
 	type ReferenceConcept,
