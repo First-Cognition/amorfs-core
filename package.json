@@ -18,8 +18,7 @@
   "scripts": {
     "build": "tsc && npm run copy:grammar",
     "build:grammar": "ohm generateBundles --esm src/grammar/amorfs.ohm",
-    "copy:grammar": "mkdir -p dist/grammar && cp src/grammar/amorfs.ohm-bundle.js dist/grammar/ && cp src/grammar/amorfs.ohm-bundle.d.ts dist/grammar/",
-    "dev": "tsc --watch",
+    "copy:grammar": "shx mkdir -p dist/grammar && shx cp src/grammar/amorfs.ohm-bundle.js dist/grammar/ && shx cp src/grammar/amorfs.ohm-bundle.d.ts dist/grammar/",    "dev": "tsc --watch",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run clean && npm run build",
     "test": "vitest run",
@@ -35,6 +34,7 @@
     "@ohm-js/cli": "^2.0.1",
     "@types/node": "^25.3.0",
     "eslint": "^9.39.2",
+    "shx": "^0.4.0",
     "typescript": "^5.3.0",
     "typescript-eslint": "^8.54.0",
     "vitest": "^3.2.4"
